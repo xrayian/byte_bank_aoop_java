@@ -61,7 +61,7 @@ public class SceneManager {
     }
 
     private void loadApplicationScenes() throws IOException {
-        loadScene("dashboard/home", "fxml/dashboard.fxml");
+        loadScene("dashboard/home", "fxml/dashboard/layout.fxml");
         loadScene("login", "fxml/onboarding/login.fxml");
         loadScene("signup", "fxml/onboarding/signup.fxml");
 //        loadScene("dashboard/transfer", "fxml/transfer.fxml");

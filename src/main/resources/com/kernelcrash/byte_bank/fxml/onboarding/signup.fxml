@@ -15,16 +15,20 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controller.onboarding.SignupController">
    <children>
-      <VBox maxWidth="600.0" prefHeight="622.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" maxWidth="600.0" prefHeight="622.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="106.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
-               <image>
-                  <Image url="@../../images/identity.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
+            <HBox>
+               <children>
+                  <ImageView fitHeight="106.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                     <image>
+                        <Image url="@../../images/identity.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                  </ImageView>
+               </children>
+            </HBox>
             <VBox alignment="TOP_RIGHT" maxWidth="600.0" prefHeight="42.0" prefWidth="400.0" spacing="10.0">
                <padding>
                   <Insets bottom="40.0" top="40.0" />
