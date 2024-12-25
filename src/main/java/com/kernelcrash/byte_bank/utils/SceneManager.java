@@ -26,8 +26,13 @@ public class SceneManager {
         FXMLLoader loader = loaders.get(name);
         if (loader != null) {
             try {
-                Parent root = loader.load();
-                primaryStage.setScene(new Scene(root));
+                if (primaryStage.getScene() == null) {
+                    primaryStage.setScene(new Scene(loader.load()));
+                } else if (loader.getRoot() == null) {
+                    primaryStage.getScene().setRoot(loader.load());
+                } else {
+                    primaryStage.getScene().setRoot(loader.getRoot());
+                }
                 primaryStage.setTitle("Byte Bank");
                 primaryStage.setResizable(name.equals("dashboard"));
                 primaryStage.show();

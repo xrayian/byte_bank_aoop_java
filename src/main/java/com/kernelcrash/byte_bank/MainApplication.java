@@ -17,6 +17,7 @@ public class MainApplication extends Application {
 
         // Set the initial scene
         sceneManager.switchScene("login");
+
     }
 
     public static void main(String[] args) {
