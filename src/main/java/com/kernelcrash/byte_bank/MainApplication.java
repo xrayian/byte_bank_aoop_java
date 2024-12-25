@@ -11,6 +11,9 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws Exception {
         sceneManager = new SceneManager(stage);
         // Load scenes
+
+        sceneManager.init();
+
         sceneManager.loadScene("dashboard", "fxml/dashboard.fxml");
         sceneManager.loadScene("login", "fxml/onboarding/login.fxml");
         sceneManager.loadScene("signup", "fxml/onboarding/signup.fxml");
