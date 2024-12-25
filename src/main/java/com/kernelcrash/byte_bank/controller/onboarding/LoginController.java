@@ -18,7 +18,7 @@ public class LoginController {
     private void login() {
         //todo implement login
         SceneManager sceneManager = MainApplication.sceneManager;
-        sceneManager.switchScene("dashboard");
+        sceneManager.switchScene("dashboard/home");
     }
 
     @FXML
