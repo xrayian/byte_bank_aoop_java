@@ -11,15 +11,12 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws Exception {
         sceneManager = new SceneManager(stage);
         // Load scenes
-        sceneManager.loadScene("dashboard", "dashboard.fxml");
-        sceneManager.loadScene("login", "onboarding/login.fxml");
-        sceneManager.loadScene("signup", "onboarding/signup.fxml");
+        sceneManager.loadScene("dashboard", "fxml/dashboard.fxml");
+        sceneManager.loadScene("login", "fxml/onboarding/login.fxml");
+        sceneManager.loadScene("signup", "fxml/onboarding/signup.fxml");
 
         // Set the initial scene
         sceneManager.switchScene("login");
-
-        stage.setTitle("Advanced Multi-Screen App");
-        stage.show();
     }
 
     public static void main(String[] args) {

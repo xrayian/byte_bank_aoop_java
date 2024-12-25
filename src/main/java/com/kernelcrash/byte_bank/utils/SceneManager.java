@@ -19,8 +19,6 @@ public class SceneManager {
 
     public void loadScene(String name, String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(fxmlPath));
-//        Scene scene = new Scene(loader.load());
-//        primaryStage.setScene(scene);
         loaders.put(name, loader);
     }
 
@@ -30,6 +28,9 @@ public class SceneManager {
             try {
                 Parent root = loader.load();
                 primaryStage.setScene(new Scene(root));
+                primaryStage.setTitle("Byte Bank");
+                primaryStage.setResizable(name.equals("dashboard"));
+                primaryStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }

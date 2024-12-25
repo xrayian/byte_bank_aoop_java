@@ -6,18 +6,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class SignupController {
-    @FXML
-    private Label dataLabel;
-    @FXML
-    private Button goBackButton;
 
-    @FXML
-    private void initialize() {
-        goBackButton.setOnAction(event -> MainApplication.sceneManager.switchScene("login"));
-    }
+        @FXML
+        private Label login_btn;
+        @FXML
+        private Button signup_btn;
 
-    public void setData(String data) {
-        dataLabel.setText(data);
-    }
+        @FXML
+        private void signup() {
+            //todo implement signup
+            MainApplication.sceneManager.switchScene("login");
+        }
+
+        @FXML
+        private void initialize() {
+            login_btn.setOnMouseClicked(event -> {
+                MainApplication.sceneManager.switchScene("login");
+            });
+        }
 }
 
