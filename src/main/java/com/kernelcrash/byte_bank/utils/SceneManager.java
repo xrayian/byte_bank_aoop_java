@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class SceneManager {
-    private final Stage primaryStage;
+    public final Stage primaryStage;
     private HashMap<String, FXMLLoader> loaders = new HashMap<>();
 
     public SceneManager(Stage stage) {
@@ -34,17 +34,9 @@ public class SceneManager {
                     primaryStage.getScene().setRoot(loader.load());
                 } else {
                     primaryStage.getScene().setRoot(loader.getRoot());
-                }
-                if (name.contains("dashboard")) {
-                    primaryStage.setTitle("Dashboard | Byte Bank");
-                    primaryStage.setMinWidth(800);
-                    primaryStage.setMinHeight(600);
-                    primaryStage.setResizable(true);
-                } else {
-                    primaryStage.setTitle("Authentication | Byte Bank");
-                    primaryStage.setMinWidth(400);
-                    primaryStage.setMinHeight(600);
-                    primaryStage.setResizable(false);
+                    SceneController sc = loader.getController();
+                    sc.reinitialize();
+
                 }
                 primaryStage.show();
             } catch (IOException e) {
@@ -61,12 +53,12 @@ public class SceneManager {
     }
 
     private void loadApplicationScenes() throws IOException {
-        loadScene("dashboard/home", "fxml/dashboard/layout.fxml");
+        loadScene("dashboard/root", "fxml/dashboard/layout.fxml");
         loadScene("login", "fxml/onboarding/login.fxml");
         loadScene("signup", "fxml/onboarding/signup.fxml");
-//        loadScene("dashboard/transfer", "fxml/transfer.fxml");
-//        loadScene("dashboard/transactions", "fxml/transactions.fxml");
-//        loadScene("dashboard/profile", "fxml/profile.fxml");
+        loadScene("dashboard/home", "fxml/dashboard/homeView.fxml");
+        loadScene("dashboard/transactions", "fxml/dashboard/transactionsView.fxml");
+        loadScene("dashboard/settings", "fxml/dashboard/settingsView.fxml");
     }
 
     private void navigateToInitialScene() {

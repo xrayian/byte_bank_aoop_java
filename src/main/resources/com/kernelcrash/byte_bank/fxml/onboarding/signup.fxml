@@ -15,11 +15,11 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controller.onboarding.SignupController">
    <children>
-      <VBox alignment="CENTER" maxWidth="600.0" prefHeight="622.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" maxWidth="600.0" prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox>
+            <HBox maxWidth="600.0" prefWidth="400.0">
                <children>
-                  <ImageView fitHeight="106.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                  <ImageView fitHeight="106.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>
                         <Image url="@../../images/identity.png" />
                      </image>
@@ -36,15 +36,15 @@
                <children>
                   <VBox spacing="10.0">
                      <children>
-                        <HBox prefHeight="55.0" prefWidth="320.0" spacing="5.0">
+                        <HBox prefHeight="55.0" prefWidth="320.0" spacing="5.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <VBox>
+                              <VBox HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="150.0" text="First Name" />
                                     <TextField />
                                  </children>
                               </VBox>
-                              <VBox layoutX="10.0" layoutY="10.0">
+                              <VBox layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="171.0" text="Last Name" />
                                     <TextField />

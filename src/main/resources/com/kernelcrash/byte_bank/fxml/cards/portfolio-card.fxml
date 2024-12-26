@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" prefHeight="120.0" prefWidth="400.0" styleClass="portfolio-card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
+            <children>
+                <Label text="Total Portfolio Value" styleClass="portfolio-title">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label text="25,678.23" styleClass="portfolio-value">
+                    <font>
+                        <Font size="32.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+    </children>
+</HBox>

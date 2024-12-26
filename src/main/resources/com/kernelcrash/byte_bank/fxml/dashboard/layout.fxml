@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Separator?>
@@ -9,10 +10,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="1162.0" maxWidth="1440.0" minWidth="500.0" prefHeight="606.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controller.dashboard.DashboardLayoutController">
+<AnchorPane maxHeight="1162.0" maxWidth="1440.0" minWidth="500.0" prefHeight="606.0" prefWidth="751.0" style="-fx-background-color: #EEF3FA;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controller.dashboard.DashboardLayoutController">
     <children>
+
+        <!-- Dynamic Content Area -->
+        <StackPane fx:id="contentArea" alignment="TOP_LEFT" layoutX="279.2" prefHeight="606.0" prefWidth="472.0" style="-fx-background-color: #EEF3FA;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <fx:include source="homeView.fxml" />
+        </StackPane>
         <!-- Persistent Sidebar -->
-        <VBox alignment="TOP_CENTER" minWidth="275.0" prefHeight="606.0" prefWidth="220.0" style="-fx-background-color: #F2F7FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="TOP_CENTER" minWidth="275.0" prefHeight="606.0" prefWidth="220.0" styleClass="dashboard-sidebar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
             <VBox alignment="TOP_CENTER">
                <children>
@@ -24,9 +30,13 @@
                   <VBox spacing="5.0">
                      <children>
                             <!-- Menu Buttons -->
-                            <Button mnemonicParsing="false" onAction="#loadDashboardView" prefHeight="26.0" prefWidth="407.0" text="Dashboard" />
-                            <Button mnemonicParsing="false" onAction="#loadTransactionsView" prefHeight="26.0" prefWidth="414.0" text="Transactions" />
-                            <Button mnemonicParsing="false" onAction="#loadSettingsView" prefHeight="26.0" prefWidth="425.0" text="Settings" />
+                            <Button fx:id="dashboardBtn" mnemonicParsing="false" onAction="#loadDashboardView" prefHeight="26.0" prefWidth="407.0" text="Dashboard">
+                           <styleClass>
+                              <String fx:value="dashboard-sidebar-button" />
+                              <String fx:value="active-sidebar-button" />
+                           </styleClass></Button>
+                            <Button fx:id="transactionsBtn" mnemonicParsing="false" onAction="#loadTransactionsView" prefHeight="26.0" prefWidth="414.0" styleClass="dashboard-sidebar-button" text="Transactions" />
+                            <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#loadSettingsView" prefHeight="26.0" prefWidth="425.0" styleClass="dashboard-sidebar-button" text="Settings" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -34,19 +44,16 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
+            <VBox alignment="BOTTOM_CENTER" stylesheets="@../../css/styles.css" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
                <children>
-                  <Separator prefWidth="200.0" />
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="417.0" text="Logout" />
+                  <Separator prefWidth="200.0" style="-fx-max-width: 200; -fx-padding: 2,2,2,2; -fx-color: #e5e5e5;" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="417.0" styleClass="dashboard-sidebar-button" text="Logout" />
                </children>
             </VBox>
             </children>
         </VBox>
-
-        <!-- Dynamic Content Area -->
-        <StackPane fx:id="contentArea" alignment="TOP_LEFT" layoutX="220.0" prefHeight="606.0" prefWidth="532.0" style="-fx-background-color: #F9F9F9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>
