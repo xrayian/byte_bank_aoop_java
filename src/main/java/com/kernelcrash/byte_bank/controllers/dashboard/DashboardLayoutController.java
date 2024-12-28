@@ -1,4 +1,4 @@
-package com.kernelcrash.byte_bank.controller.dashboard;
+package com.kernelcrash.byte_bank.controllers.dashboard;
 
 import com.kernelcrash.byte_bank.MainApplication;
 import com.kernelcrash.byte_bank.utils.SceneController;
@@ -19,6 +19,9 @@ public class DashboardLayoutController implements SceneController {
     private Button dashboardBtn;
 
     @FXML
+    private Button transferBtn;
+
+    @FXML
     private Button transactionsBtn;
 
     @FXML
@@ -33,6 +36,14 @@ public class DashboardLayoutController implements SceneController {
         clearActiveButtonStyles();
         dashboardBtn.getStyleClass().add("active-sidebar-button");
         loadView("fxml/dashboard/homeView.fxml");
+    }
+
+    @FXML
+    public void loadTransferView() {
+        stage.setTitle("Transfer | Byte Bank");
+        clearActiveButtonStyles();
+        transferBtn.getStyleClass().add("active-sidebar-button");
+        loadView("fxml/dashboard/transferView.fxml");
     }
 
     @FXML
@@ -53,6 +64,7 @@ public class DashboardLayoutController implements SceneController {
 
     private void clearActiveButtonStyles() {
         dashboardBtn.getStyleClass().remove("active-sidebar-button");
+        transferBtn.getStyleClass().remove("active-sidebar-button");
         transactionsBtn.getStyleClass().remove("active-sidebar-button");
         settingsBtn.getStyleClass().remove("active-sidebar-button");
     }
@@ -72,9 +84,12 @@ public class DashboardLayoutController implements SceneController {
     }
 
     private void setupUI() {
-        stage.setMinWidth(800);
+        stage.setMinWidth(1000);
         stage.setMinHeight(600);
         stage.setResizable(true);
+        stage.setTitle("Dashboard | Byte Bank");
+        stage.setX(0);
+        stage.setY(0);
         System.out.println("DashboardLayoutController initialized");
         //loadDashboardView();
     }

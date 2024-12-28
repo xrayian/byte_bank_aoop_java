@@ -1,4 +1,4 @@
-package com.kernelcrash.byte_bank.controller.dashboard;
+package com.kernelcrash.byte_bank.controllers.dashboard;
 
 import javafx.fxml.FXML;
 

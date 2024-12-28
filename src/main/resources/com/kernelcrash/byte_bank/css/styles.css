@@ -7,7 +7,6 @@
     -fx-font-size: 24px;
     -fx-font-family: "Inter", sans-serif;
     -fx-font-weight: bold;
-    -fx-background-color: #f4f4f4;
 }
 
 button {
@@ -125,6 +124,7 @@ button:hover {
 
 .scroll-pane {
     -fx-background-color: transparent; /* Makes the background transparent */
+    -fx-background: transparent;     /* Removes the border */
     -fx-border-color: transparent;    /* Removes the border */
     -fx-padding: 0;                   /* Adjust padding if needed */
 }

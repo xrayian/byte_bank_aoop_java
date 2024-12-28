@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="1162.0" maxWidth="1440.0" minWidth="500.0" prefHeight="606.0" prefWidth="751.0" style="-fx-background-color: #EEF3FA;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controller.dashboard.DashboardLayoutController">
+<AnchorPane minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #EEF3FA;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardLayoutController">
     <children>
 
         <!-- Dynamic Content Area -->
@@ -35,7 +35,8 @@
                               <String fx:value="dashboard-sidebar-button" />
                               <String fx:value="active-sidebar-button" />
                            </styleClass></Button>
-                            <Button fx:id="transactionsBtn" mnemonicParsing="false" onAction="#loadTransactionsView" prefHeight="26.0" prefWidth="414.0" styleClass="dashboard-sidebar-button" text="Transactions" />
+                            <Button fx:id="transferBtn" mnemonicParsing="false" onAction="#loadTransferView" prefHeight="26.0" prefWidth="414.0" styleClass="dashboard-sidebar-button" text="Transfer" />
+                        <Button fx:id="transactionsBtn" layoutX="15.0" layoutY="62.0" mnemonicParsing="false" onAction="#loadTransactionsView" prefHeight="26.0" prefWidth="414.0" styleClass="dashboard-sidebar-button" text="Transactions" />
                             <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#loadSettingsView" prefHeight="26.0" prefWidth="425.0" styleClass="dashboard-sidebar-button" text="Settings" />
                      </children>
                      <padding>

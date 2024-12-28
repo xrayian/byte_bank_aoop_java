@@ -1,4 +1,4 @@
-package com.kernelcrash.byte_bank.controller.onboarding;
+package com.kernelcrash.byte_bank.controllers.onboarding;
 
 import com.kernelcrash.byte_bank.MainApplication;
 import com.kernelcrash.byte_bank.utils.SceneController;

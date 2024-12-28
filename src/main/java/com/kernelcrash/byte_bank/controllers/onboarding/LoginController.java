@@ -1,11 +1,10 @@
-package com.kernelcrash.byte_bank.controller.onboarding;
+package com.kernelcrash.byte_bank.controllers.onboarding;
 
 import com.kernelcrash.byte_bank.MainApplication;
 import com.kernelcrash.byte_bank.utils.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import com.kernelcrash.byte_bank.utils.SceneManager;
 import javafx.stage.Stage;
 
