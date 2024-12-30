@@ -1,5 +1,6 @@
 package com.kernelcrash.byte_bank.controllers.dashboard;
 
+import javafx.scene.control.TableCell;
 import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.collections.FXCollections;
@@ -8,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 
 
 import java.text.SimpleDateFormat;
@@ -39,12 +39,60 @@ public class DashboardTransactionsController {
 
     public void initialize() {
         // Set up columns
+        iconColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(FontIcon icon, boolean empty) {
+                super.updateItem(icon, empty);
+                if (empty || icon == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setGraphic(icon);
+                    icon.getStyleClass().add("font-icon");
+                    icon.getStyleClass().add("start");
+                }
+            }
+        });
         iconColumn.setCellValueFactory(new PropertyValueFactory<>("icon"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        currencyColumn.setCellValueFactory(new PropertyValueFactory<>("currency"));
+
+        amountColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String amount, boolean empty) {
+                super.updateItem(amount, empty);
+                if (empty || amount == null) {
+                    setText(null);
+                } else {
+                    setText(amount);
+                    if (amount.startsWith("-")) {
+                        getStyleClass().add("amount-cell-negative");
+                    } else {
+                        getStyleClass().add("amount-cell");
+                    }
+                }
+            }
+        });
+
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+
+        currencyColumn.setCellValueFactory(new PropertyValueFactory<>("currency"));
+
+        dateTimeColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String dateTime, boolean empty) {
+                super.updateItem(dateTime, empty);
+                if (empty || dateTime == null) {
+                    setText(null);
+                } else {
+                    setText(dateTime);
+
+                    getStyleClass().add("end");
+                }
+            }
+        });
         dateTimeColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
+
         populateTransactions();
     }
 
@@ -66,23 +114,26 @@ public class DashboardTransactionsController {
 
     public class TransactionItem {
 
+        @FXML
         private final FontIcon icon;
+
+        @FXML
         private final String name;
+
+        @FXML
         private final String type;
+
+        @FXML
         private final String currency;
+
+        @FXML
         private final String amount;
+
+        @FXML
         private final String dateTime;
 
         public TransactionItem(String iconLiteral, String name, String type, String currency, String amount, Date dateTime) {
-//             Create a FontIcon using the literal
-            this.icon = new FontIcon(iconLiteral);
-            this.icon.setIconSize(20);              // Set icon size
-            this.icon.setIconColor(Color.BLACK);    // Default color (can be customized)
-            this.icon.getStyleClass().add("font-icon");         // Add a class name for CSS styling
 
-            this.currency = currency;
-
-            // Format the date
             String pattern = "E, dd MMM yyyy hh:mm a";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             String date = simpleDateFormat.format(dateTime);
@@ -91,8 +142,8 @@ public class DashboardTransactionsController {
             this.type = type;
             this.amount = amount;
             this.dateTime = date;
-
-
+            this.icon = new FontIcon(iconLiteral);
+            this.currency = currency;
         }
 
         public FontIcon getIcon() {

@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <TableView fx:id="transactionsTable" prefWidth="800.0" prefHeight="600.0">
+        <columns>
+            <!-- Icon Column -->
+            <TableColumn fx:id="iconColumn" text="Icon" prefWidth="80.0"/>
 
+            <!-- Name Column -->
+            <TableColumn fx:id="nameColumn" text="Name" prefWidth="150.0"/>
+
+            <!-- Type Column -->
+            <TableColumn fx:id="typeColumn" text="Type" prefWidth="100.0"/>
+
+            <!-- Currency Column -->
+            <TableColumn fx:id="currencyColumn" text="Currency" prefWidth="100.0"/>
+
+            <!-- Amount Column -->
+            <TableColumn fx:id="amountColumn" text="Amount" prefWidth="100.0"/>
+
+            <!-- Date/Time Column -->
+            <TableColumn fx:id="dateTimeColumn" text="Date/Time" prefWidth="200.0"/>
+        </columns>
+    </TableView>
 </AnchorPane>
