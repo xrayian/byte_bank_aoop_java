@@ -1,0 +1,68 @@
+/* General Table Styling */
+.table-view {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+    -fx-control-inner-background: #f9fbff;
+    /*-fx-padding: 10;*/
+
+}
+
+.table-view .column-header {
+    -fx-background-color: #e6ecf4;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a4a4a;
+    -fx-border-color: #d6dbe5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #e6ecf4;
+}
+
+.table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+    -fx-padding: 5;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f7f9fc;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #a6c1ee;
+    -fx-text-fill: #ffffff;
+}
+
+.table-cell {
+    -fx-padding: 8 12;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Align Numeric Columns (Amount) */
+.table-cell.amount-cell {
+    -fx-alignment: CENTER_RIGHT;
+}
+
+/* Highlight Icons */
+.table-cell.icon-cell {
+    -fx-alignment: CENTER;
+    -fx-padding: 0;
+}
+
+.font-icon {
+    -fx-font-size: 20px;
+    -fx-text-fill: #4a90e2; /* Icon color */
+}
+
+/* Header Title Styling */
+.label.header-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3366cc;
+    /*-fx-padding: 10 0 20 0;*/
+    /*-fx-alignment: CENTER;*/
+}

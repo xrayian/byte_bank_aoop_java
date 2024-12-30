@@ -1,8 +1,17 @@
 module com.kernelcrash.byte_bank {
     requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.core;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires javafx.graphics;
+    requires javafx.base;
+    requires javafx.media;
+
+    //icon packs
+    requires org.kordamp.ikonli.fontawesome5;
+    requires org.kordamp.ikonli.materialdesign2;
+
 
 
     opens com.kernelcrash.byte_bank to javafx.fxml;
