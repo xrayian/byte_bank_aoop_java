@@ -25,7 +25,7 @@ public class DashboardHomeController {
 
     private void loadPortfolio() {
         portfolio_vbox.getChildren().clear();
-        addPortfolioCard(portfolio_vbox, "Total Portfolio Value", "USD 1,000,000.00");
+        addPortfolioCard(portfolio_vbox, "Total Assets Value", "USD 345,650.34");
         addPortfolioCard(portfolio_vbox, "Transactions (Last 60 Days)", "USD 12,230.00");
         addPortfolioCard(portfolio_vbox, "Portfolio Profits", "USD 21,235.93");
     }

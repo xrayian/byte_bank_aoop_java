@@ -1,27 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="569.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransferController">
-   <children>
-      <VBox prefHeight="570.0" prefWidth="814.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-         <children>
-            <HBox prefHeight="200.0" prefWidth="774.0" spacing="8.0" VBox.vgrow="ALWAYS">
+<AnchorPane prefHeight="569.0" prefWidth="814.0" style="-fx-background-color: #f4f7fe;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransferController">
+    <children>
+        <VBox prefHeight="570.0" prefWidth="814.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            </padding>
+            <children>
+                <HBox fillHeight="false" prefHeight="0.0" prefWidth="798.0" spacing="8.0" VBox.vgrow="NEVER">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="163.0" prefWidth="396.0" spacing="10.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 10; -fx-background-color: linear-gradient(to left, #ffffff, #e9f2fa);" HBox.hgrow="ALWAYS">
+                            <children>
+                                <ImageView fitHeight="121.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../images/BTC_to_ETH.png" />
+                                    </image>
+                                </ImageView>
+                                <Label prefHeight="142.0" prefWidth="259.0" style="-fx-label-padding: 20px;" text="Buy, Sell, Exchange Assets" wrapText="true" HBox.hgrow="ALWAYS">
+                                    <font>
+                                        <Font name="Inter Regular" size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <effect>
+                                <DropShadow offsetX="5.0" offsetY="5.0">
+                                    <color>
+                                        <Color opacity="0.15273556113243103" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0" style="-fx-background-color: linear-gradient(to left, #ffffff, #e9f2fa); -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 10;" HBox.hgrow="ALWAYS">
+                            <children>
+                                <ImageView fitHeight="77.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../images/transfer.png" />
+                                    </image>
+                                </ImageView>
+                                <Label prefHeight="122.0" prefWidth="189.0" style="-fx-label-padding: 20px;" text="Transfer Assets" wrapText="true" HBox.hgrow="ALWAYS">
+                                    <font>
+                                        <Font name="Inter Regular" size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <effect>
+                                <DropShadow offsetX="5.0" offsetY="5.0">
+                                    <color>
+                                        <Color opacity="0.15000000596046448" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </HBox>
+                    </children>
+                </HBox>
+            <AnchorPane prefHeight="418.0" prefWidth="798.0" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15;" HBox.hgrow="ALWAYS" />
-                  <HBox style="-fx-background-color: yellow; -fx-border-radius: 15; -fx-background-radius: 15;" HBox.hgrow="ALWAYS" />
+                       <fx:include source="../cards/transfer-asset-convert-card.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
-            </HBox>
-            <Pane prefHeight="418.0" prefWidth="774.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: green;" VBox.vgrow="ALWAYS" />
-         </children>
-      </VBox>
-   </children>
+            </AnchorPane>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

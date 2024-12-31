@@ -19,6 +19,9 @@ public class DashboardLayoutController implements SceneController {
     private Button dashboardBtn;
 
     @FXML
+    private Button marketplaceBtn;
+
+    @FXML
     private Button transferBtn;
 
     @FXML
@@ -36,6 +39,14 @@ public class DashboardLayoutController implements SceneController {
         clearActiveButtonStyles();
         dashboardBtn.getStyleClass().add("active-sidebar-button");
         loadView("fxml/dashboard/homeView.fxml");
+    }
+
+    @FXML
+    public void loadMarketplaceView() {
+        stage.setTitle("Marketplace | Byte Bank");
+        clearActiveButtonStyles();
+        marketplaceBtn.getStyleClass().add("active-sidebar-button");
+        loadView("fxml/dashboard/marketplaceView.fxml");
     }
 
     @FXML
@@ -67,6 +78,7 @@ public class DashboardLayoutController implements SceneController {
         transferBtn.getStyleClass().remove("active-sidebar-button");
         transactionsBtn.getStyleClass().remove("active-sidebar-button");
         settingsBtn.getStyleClass().remove("active-sidebar-button");
+        marketplaceBtn.getStyleClass().remove("active-sidebar-button");
     }
 
     @FXML
