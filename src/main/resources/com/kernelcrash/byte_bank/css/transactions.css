@@ -44,7 +44,7 @@
 
 .table-row-cell {
     -fx-background-color: transparent;
-    -fx-padding: 4 0 0 0;
+    -fx-padding: 4px 0px 0px 0px; /* spacing-y for the cells */
     -fx-border-color: transparent;
 }
 
@@ -53,10 +53,10 @@
 }
 
 .table-cell {
-    -fx-padding: 12 16;
+    -fx-padding: 4px 4px 4px 4px;
     -fx-background-color: #ffffff; /* Card background */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0, 0, 2);
-    -fx-alignment: CENTER_LEFT;
+    -fx-alignment:  center;
     -fx-font-size: 14px;
     -fx-font-family: "Inter", sans-serif;
     -fx-text-fill: #2c3e50;
@@ -79,8 +79,8 @@
 }
 
 .table-cell.icon-cell {
-    -fx-alignment: CENTER;
-    -fx-padding: 0;
+    /*-fx-alignment: CENTER;*/
+    /*-fx-padding: 0;*/
 }
 
 .icon-cell.font-icon {

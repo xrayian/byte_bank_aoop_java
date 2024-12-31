@@ -1,7 +1,6 @@
 package com.kernelcrash.byte_bank.controllers.dashboard;
 
 import javafx.scene.control.TableCell;
-import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +22,7 @@ public class DashboardTransactionsController {
     private TableColumn<TransactionItem, FontIcon> iconColumn;
 
     @FXML
-    private TableColumn<TransactionItem, String> nameColumn;
+    private TableColumn<TransactionItem, String> accNameColumn;
 
     @FXML
     private TableColumn<TransactionItem, String> typeColumn;
@@ -48,15 +47,15 @@ public class DashboardTransactionsController {
                     setGraphic(null);
                 } else {
                     setGraphic(icon);
+                    icon.getStyleClass().add("icon-cell");
                     icon.getStyleClass().add("font-icon");
                     icon.getStyleClass().add("start");
                 }
             }
         });
         iconColumn.setCellValueFactory(new PropertyValueFactory<>("icon"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        accNameColumn.setCellValueFactory(new PropertyValueFactory<>("accountName"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-
         amountColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String amount, boolean empty) {
@@ -65,19 +64,15 @@ public class DashboardTransactionsController {
                     setText(null);
                 } else {
                     setText(amount);
+                    getStyleClass().add("amount-cell");
                     if (amount.startsWith("-")) {
-                        getStyleClass().add("amount-cell-negative");
-                    } else {
-                        getStyleClass().add("amount-cell");
+                        getStyleClass().add("negative");
                     }
                 }
             }
         });
-
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-
         currencyColumn.setCellValueFactory(new PropertyValueFactory<>("currency"));
-
         dateTimeColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String dateTime, boolean empty) {
@@ -86,7 +81,6 @@ public class DashboardTransactionsController {
                     setText(null);
                 } else {
                     setText(dateTime);
-
                     getStyleClass().add("end");
                 }
             }
@@ -98,14 +92,14 @@ public class DashboardTransactionsController {
 
     private void populateTransactions() {
         // Add transactions to the table
-        ObservableList<TransactionItem> transactions = FXCollections.observableArrayList(
-                new TransactionItem("fas-arrow-right", "Bitcoin", "Deposit", "BTC", "+0.5", new Date()),
-                new TransactionItem("fas-arrow-left", "Bitcoin", "Withdraw", "BTC", "-0.5", new Date()),
-                new TransactionItem("fas-arrow-right", "Bitcoin", "Deposit", "BTC", "+0.5", new Date())
-        );
+        ObservableList<TransactionItem> transactions = FXCollections.observableArrayList();
 
         for (int i = 0; i < 60; i++) {
-            transactions.add(new TransactionItem("fas-arrow-right", "Bitcoin", "Deposit", "BTC", "+0.5", new Date()));
+            String accountName = 1012234436578853L * (i + 3 * 2) + "";
+            if (i % 2 == 0)
+                transactions.add(new TransactionItem("fas-arrow-left", accountName, "Withdrawal", "BTC", "-0.5", new Date()));
+            else
+                transactions.add(new TransactionItem("fas-arrow-right", accountName, "Deposit", "BTC", "+0.5", new Date()));
         }
 
         transactionsTable.setItems(transactions);
@@ -118,7 +112,7 @@ public class DashboardTransactionsController {
         private final FontIcon icon;
 
         @FXML
-        private final String name;
+        private final String accountName;
 
         @FXML
         private final String type;
@@ -132,13 +126,13 @@ public class DashboardTransactionsController {
         @FXML
         private final String dateTime;
 
-        public TransactionItem(String iconLiteral, String name, String type, String currency, String amount, Date dateTime) {
+        public TransactionItem(String iconLiteral, String accountName, String type, String currency, String amount, Date dateTime) {
 
             String pattern = "E, dd MMM yyyy hh:mm a";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             String date = simpleDateFormat.format(dateTime);
 
-            this.name = name;
+            this.accountName = accountName;
             this.type = type;
             this.amount = amount;
             this.dateTime = date;
@@ -150,8 +144,8 @@ public class DashboardTransactionsController {
             return icon;
         }
 
-        public String getName() {
-            return name;
+        public String getAccountName() {
+            return accountName;
         }
 
         public String getType() {

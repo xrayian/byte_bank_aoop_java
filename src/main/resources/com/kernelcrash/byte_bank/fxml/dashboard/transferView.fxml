@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransferController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="569.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransferController">
+   <children>
+      <VBox prefHeight="570.0" prefWidth="814.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+         <children>
+            <HBox prefHeight="200.0" prefWidth="774.0" spacing="8.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox style="-fx-background-color: red; -fx-background-radius: 15; -fx-border-radius: 15;" HBox.hgrow="ALWAYS" />
+                  <HBox style="-fx-background-color: yellow; -fx-border-radius: 15; -fx-background-radius: 15;" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <Pane prefHeight="418.0" prefWidth="774.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: green;" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
