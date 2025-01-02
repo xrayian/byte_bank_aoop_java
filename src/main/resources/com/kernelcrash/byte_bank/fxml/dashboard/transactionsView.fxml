@@ -23,7 +23,7 @@
                 </Label>
 
                 <!-- Table -->
-                <TableView fx:id="transactionsTable" prefWidth="600" VBox.vgrow="ALWAYS">
+                <TableView fx:id="transactionsTable" cacheShape="false" prefWidth="600" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="iconColumn" prefWidth="50" resizable="false" styleClass="start" />
                         <TableColumn fx:id="accNameColumn" prefWidth="150" text="Account Name" />

@@ -2,43 +2,57 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #FDFDFF;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.TransferConversionController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="795.0" spacing="20.0" style="-fx-background-color: #fdfdff; -fx-background-radius: 15; -fx-border-radius: 15;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <VBox prefHeight="400.0" prefWidth="795.0" spacing="20.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
             <HBox prefHeight="27.0" prefWidth="790.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="681.0" styleClass="card-header" text="Operation" HBox.hgrow="ALWAYS" />
-                  <ButtonBar buttonMinWidth="80.0" prefHeight="27.0" prefWidth="234.0">
-                    <buttons>
+                  <Label prefHeight="42.0" prefWidth="239.0" styleClass="card-header" text="Operation" HBox.hgrow="ALWAYS" />
+                  <Separator prefWidth="200.0" visible="false" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER" maxWidth="170.0" minWidth="170.0" prefHeight="42.0" prefWidth="170.0" spacing="5.0" styleClass="combo-box-input" HBox.hgrow="NEVER">
+                     <children>
                           <ToggleButton selected="true" text="Sell">
                            <toggleGroup>
                               <ToggleGroup fx:id="op_group" />
-                           </toggleGroup></ToggleButton>
+                           </toggleGroup>
+                        </ToggleButton>
                           <ToggleButton text="Buy" toggleGroup="$op_group" />
                           <ToggleButton text="Exchange" toggleGroup="$op_group" />
-                    </buttons>
-                  </ButtonBar>
+                     </children>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                     <effect>
+                        <InnerShadow height="7.0" offsetX="-2.0" offsetY="-2.0" radius="3.0" width="7.0">
+                           <color>
+                              <Color opacity="0.14969603717327118" />
+                           </color>
+                        </InnerShadow>
+                     </effect>
+                  </HBox>
                </children>
             </HBox>
-            <VBox fillWidth="false" prefHeight="163.0" prefWidth="438.0" spacing="20.0">
+            <VBox fillWidth="false" prefHeight="271.0" prefWidth="750.0" spacing="20.0">
                <children>
                   <VBox spacing="5.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Label styleClass="h3-title" text="You Pay" />
                         <HBox styleClass="combo-box-input">
                            <children>
-                              <ChoiceBox prefWidth="150.0" />
+                              <ChoiceBox fx:id="payCryptoBox" prefWidth="150.0" />
                               <TextField alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="234.0" style="-fx-border-color: transparent;" />
                            </children>
                         </HBox>
@@ -49,18 +63,23 @@
                         <Label styleClass="h3-title" text="You Receive" />
                         <HBox styleClass="combo-box-input">
                            <children>
-                              <ChoiceBox prefWidth="150.0" />
+                              <ChoiceBox fx:id="receiveCryptoBox" prefWidth="150.0" />
                               <TextField alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="234.0" style="-fx-border-color: transparent;" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
+                  <Separator disable="true" focusTraversable="false" orientation="VERTICAL" prefHeight="250.0" prefWidth="26.0" visible="false" VBox.vgrow="ALWAYS" />
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="400.0" text="Proceed">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="410.0" text="Proceed" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

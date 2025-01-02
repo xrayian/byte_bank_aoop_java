@@ -11,7 +11,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="569.0" prefWidth="814.0" style="-fx-background-color: #f4f7fe;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransferController">
+<AnchorPane prefHeight="569.0" prefWidth="814.0" style="-fx-background-color: #f4f7fe;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransferController">
     <children>
         <VBox prefHeight="570.0" prefWidth="814.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <padding>
@@ -20,7 +20,7 @@
             <children>
                 <HBox fillHeight="false" prefHeight="0.0" prefWidth="798.0" spacing="8.0" VBox.vgrow="NEVER">
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="163.0" prefWidth="396.0" spacing="10.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 10; -fx-background-color: linear-gradient(to left, #ffffff, #e9f2fa);" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" prefHeight="163.0" prefWidth="396.0" spacing="10.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 10; -fx-background-color: linear-gradient(to left, #ffffff, #e9f2fa);" styleClass="card-selected" HBox.hgrow="ALWAYS">
                             <children>
                                 <ImageView fitHeight="121.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -64,11 +64,10 @@
                         </HBox>
                     </children>
                 </HBox>
-            <AnchorPane prefHeight="418.0" prefWidth="798.0" VBox.vgrow="ALWAYS">
-               <children>
-                       <fx:include source="../cards/transfer-asset-convert-card.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
+                <VBox styleClass="base-card" VBox.vgrow="ALWAYS">
+                    <fx:include source="../cards/transfer-asset-convert-card.fxml" />
+
+                </VBox>
             </children>
         </VBox>
     </children>
