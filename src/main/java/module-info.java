@@ -11,7 +11,7 @@ module com.kernelcrash.byte_bank {
     //icon packs
     requires org.kordamp.ikonli.fontawesome5;
     requires org.kordamp.ikonli.materialdesign2;
-
+    requires java.net.http;
 
 
     opens com.kernelcrash.byte_bank to javafx.fxml;
