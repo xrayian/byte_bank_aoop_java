@@ -7,13 +7,17 @@ module com.kernelcrash.byte_bank {
     requires javafx.graphics;
     requires javafx.base;
     requires javafx.media;
+    requires java.net.http;
+    requires com.google.gson;
+    requires spring.messaging;
+    requires spring.websocket;
 
     //icon packs
     requires org.kordamp.ikonli.fontawesome5;
     requires org.kordamp.ikonli.materialdesign2;
-    requires java.net.http;
 
 
+    opens com.kernelcrash.byte_bank.models to com.google.gson;
     opens com.kernelcrash.byte_bank to javafx.fxml;
     opens com.kernelcrash.byte_bank.controllers.dashboard to javafx.fxml;
     opens com.kernelcrash.byte_bank.controllers.onboarding to javafx.fxml;

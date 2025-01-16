@@ -1,8 +1,8 @@
 package com.kernelcrash.byte_bank.controllers.onboarding;
 
 import com.kernelcrash.byte_bank.MainApplication;
+import com.kernelcrash.byte_bank.utils.ConfigHelper;
 import com.kernelcrash.byte_bank.utils.SceneController;
-import com.kernelcrash.byte_bank.utils.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -62,7 +62,7 @@ public class SignupController implements SceneController {
 
         //send http post request
         try {
-            MainApplication.httpClientHelper.sendPost("http://localhost:8080/api/v1/auth/register?username="+username+"&password="+password+"&email="+email, empty, Map.of("Content-Type", "application/json"));
+            MainApplication.httpClientHelper.sendPost(ConfigHelper.BACKEND_API_URL +"auth/register?username="+username+"&password="+password+"&email="+email, empty, Map.of("Content-Type", "application/json"));
         } catch (Exception e) {
             e.printStackTrace();
             error_msg.setText("An error occurred. Please try again later.");
@@ -82,8 +82,8 @@ public class SignupController implements SceneController {
 
     private void setupUI() {
         stage.setTitle("Create Account | Byte Bank");
-        stage.setWidth(400);
-        stage.setHeight(600);
+//        stage.setWidth(400);
+//        stage.setHeight(600);
         stage.setResizable(false);
     }
 

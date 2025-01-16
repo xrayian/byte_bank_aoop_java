@@ -1,6 +1,7 @@
 package com.kernelcrash.byte_bank.controllers.dashboard;
 
 import com.kernelcrash.byte_bank.MainApplication;
+import com.kernelcrash.byte_bank.utils.StateManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -8,8 +9,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class DashboardHomeController {
+
+    StateManager stateManager = StateManager.getInstance();
+
     @FXML
     VBox coin_vbox;
 
@@ -17,10 +22,42 @@ public class DashboardHomeController {
     VBox portfolio_vbox;
 
     @FXML
+    VBox header_vbox;
+
+
+    @FXML
     private void initialize() {
+        setUserDetails();
         loadCoinList();
         loadPortfolio();
         System.out.println("DashboardHomeController initialized");
+    }
+
+    private void setUserDetails() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/cards/dashboard-home-header.fxml"));
+            HBox headerCard = loader.load();
+
+            Label username = (Label) headerCard.lookup(".user-name");
+            Label email = (Label) headerCard.lookup(".user-email");
+            Label last_login = (Label) headerCard.lookup(".last-login");
+            Label acc_no = (Label) headerCard.lookup(".account-info");
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+            if (stateManager.getCurrentUser() != null) {
+
+                username.setText(stateManager.getCurrentUser().getUsername());
+                email.setText(stateManager.getCurrentUser().getEmail());
+                last_login.setText("Last Login: "+stateManager.getCurrentUser().getUpdatedAt().format(formatter));
+                acc_no.setText("Account No: "+stateManager.getCurrentUser().getUserId());
+            }
+
+            header_vbox.getChildren().set(0,headerCard);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadPortfolio() {

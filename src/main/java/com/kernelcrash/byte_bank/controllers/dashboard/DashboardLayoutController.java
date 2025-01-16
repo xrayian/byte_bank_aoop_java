@@ -2,6 +2,7 @@ package com.kernelcrash.byte_bank.controllers.dashboard;
 
 import com.kernelcrash.byte_bank.MainApplication;
 import com.kernelcrash.byte_bank.utils.SceneController;
+import com.kernelcrash.byte_bank.utils.StateManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -83,6 +84,9 @@ public class DashboardLayoutController implements SceneController {
 
     @FXML
     public void logout() {
+        StateManager stateManager = StateManager.getInstance();
+        stateManager.logout();
+
         stage.setTitle("Login | Byte Bank");
         stage.setWidth(400);
         stage.setHeight(600);

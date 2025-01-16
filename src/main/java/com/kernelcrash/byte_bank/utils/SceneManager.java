@@ -63,8 +63,13 @@ public class SceneManager {
 
     private void navigateToInitialScene() {
         try {
-            //todo: check if user is logged in
-            switchScene("login");
+
+            StateManager stateManager = StateManager.getInstance();
+            if (stateManager.isUserLoggedIn()) {
+                switchScene("dashboard/root");
+            } else {
+                switchScene("login");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,8 +79,8 @@ public class SceneManager {
         //set icon
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(MainApplication.class.getResourceAsStream("/com/kernelcrash/byte_bank/images/icon.png"))));
         primaryStage.setTitle("Byte Bank Client");
-        primaryStage.setMinWidth(400);
-        primaryStage.setMinHeight(600);
+//        primaryStage.setMinWidth(400);
+//        primaryStage.setMinHeight(600);
 
         loadApplicationScenes();
         navigateToInitialScene();

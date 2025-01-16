@@ -8,12 +8,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="536.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransactionsController">
+<AnchorPane prefHeight="536.0" prefWidth="985.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransactionsController">
     <children>
-        <VBox prefHeight="536.0" prefWidth="986.0" stylesheets="@../../css/transactions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="536.0" prefWidth="986.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <!-- Header -->
-                <Label alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="221.0" styleClass="header-title" text="Transaction History">
+                <Label alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="232.0" styleClass="header-title" text="Transaction History">
                     <font>
                         <Font size="24.0" />
                     </font>

@@ -17,9 +17,9 @@
         <!-- User Info -->
         <VBox alignment="CENTER_LEFT" spacing="5.0">
             <children>
-                <Label styleClass="user-name" text="Rayian Mahi" />
-                <Label styleClass="user-email" text="rbsmahi@gmail.com" />
-                <Label styleClass="account-info" text="Account No: 1012234436578853" />
+                <Label fx:id="username" styleClass="user-name" text="Rayian Mahi" />
+                <Label fx:id="email" styleClass="user-email" text="rbsmahi@gmail.com" />
+                <Label fx:id="acc_no" styleClass="account-info" text="Account No: 1012234436578853" />
             </children>
         </VBox>
 
@@ -30,7 +30,7 @@
         <VBox alignment="CENTER_RIGHT" spacing="5.0">
             <children>
                 <Label styleClass="greeting" text="Welcome back!" />
-                <Label styleClass="last-login" text="Last login: Dec 26, 2024" />
+                <Label fx:id="last_login" styleClass="last-login" text="Last login: Dec 26, 2024" />
             </children>
         </VBox>
     </children>

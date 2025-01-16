@@ -1,6 +1,10 @@
 package com.kernelcrash.byte_bank.utils;
 
+import javafx.scene.control.Alert;
+
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -46,9 +50,11 @@ public class HttpClientHelper {
      * @param jsonBody The JSON payload as a String.
      * @param headers Optional headers for the request.
      * @return The response body as a String.
-     * @throws Exception If an error occurs during the request.
      */
-    public String sendPost(String url, String jsonBody, Map<String, String> headers) throws Exception {
+    public String sendPost(String url, String jsonBody, Map<String, String> headers) throws URISyntaxException {
+
+        ConfigHelper configHelper = new ConfigHelper();
+
         HttpRequest.Builder builder = HttpRequest.newBuilder()
                 .uri(new URI(url))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
@@ -60,8 +66,28 @@ public class HttpClientHelper {
         }
 
         HttpRequest request = builder.build();
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        validateResponse(response);
+        HttpResponse<String> response = null;
+        try {
+            if(configHelper.debugNetwork) {
+                System.out.println("Sending POST request to: " + url);
+                System.out.println("Request body: " + jsonBody);
+            }
+            response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            validateResponse(response);
+        } catch (IOException | InterruptedException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("An error occurred");
+            alert.setContentText("An error occurred while sending the request. Please try again later.");
+            alert.showAndWait();
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("An error occurred");
+            alert.setContentText("Something went wrong. Please try again later.");
+            throw new RuntimeException(e);
+        }
 
         return response.body();
     }

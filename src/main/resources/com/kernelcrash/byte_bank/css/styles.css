@@ -1,146 +1,92 @@
-.u-hvr:hover {
-    -fx-underline: true;
-    -fx-cursor: hand;
+/* Fix for Scroll Pane */
+.scroll-pane {
+    -fx-background-color: transparent; /* Neutral light gray */
+    /*-fx-border-color: #dce1e8; !* Subtle border *!*/
+    -fx-padding: 8px; /* Add spacing for clarity */
+    -fx-border-color: transparent;
+
 }
 
-.section-title {
-    -fx-font-size: 24px;
+
+
+.scroll-pane .label {
+    -fx-text-fill: #2c3e50; /* Darker gray for visibility */
+}
+
+/* Universal Font Style */
+.root {
     -fx-font-family: "Inter", sans-serif;
-    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50; /* Modern dark gray */
 }
 
+/* Buttons */
 button {
-    -fx-background-color: #f0fbff;         /* Soft blue background */
-    -fx-border-color: #a8d4e8;            /* Muted border color */
-    -fx-border-radius: 8px;               /* Rounded corners */
-    -fx-background-radius: 8px;           /* Match border radius */
-    -fx-font-family: "Inter", sans-serif; /* Clean font */
-    -fx-font-size: 14px;                  /* Standard text size */
-    -fx-font-weight: bold;                /* Bold text */
-    -fx-text-fill: #333;                  /* Neutral dark text color */
-    -fx-padding: 10px 16px;               /* Balanced padding */
-    -fx-cursor: hand;                     /* Pointer cursor */
-    -fx-transition: all 0.3s ease-in-out; /* Smooth transitions */
+    -fx-background-color: #e9f5ff; /* Soft blue */
+    -fx-border-color: #c6e0f7; /* Light border */
+    -fx-text-fill: #0056a4; /* Vibrant blue text */
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 16px;
+    -fx-font-weight: bold;
+    -fx-transition: all 0.3s ease-in-out;
 }
 
 button:hover {
-    -fx-background-color: #e0f4ff;        /* Brighter hover background */
-    -fx-border-color: #91c8e0;            /* Darker hover border */
-    -fx-text-fill: #006bb7;               /* Vibrant hover text */
-    -fx-effect: dropshadow(gaussian, rgba(0, 107, 183, 0.3), 4, 0, 0, 2);
+    -fx-background-color: #d0eaff; /* Brighter hover */
+    -fx-border-color: #9fc8f0; /* Slightly darker border */
+    -fx-text-fill: #003f7e; /* Deep hover text color */
 }
 
+/* Sidebar */
 .dashboard-sidebar {
-    -fx-background-color: #f5f7fa;        /* Neutral sidebar background */
-    -fx-border-color: #dce1e8;            /* Light border */
-    -fx-border-radius: 0px 12px 12px 0px; /* Rounded edges */
-    -fx-background-radius: 0px 12px 12px 0px; /* Match border radius */
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #515a6e;               /* Modern gray text */
-    -fx-padding: 16px;                    /* Balanced spacing */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0, 2, 2);
+    -fx-background-color: #ffffff; /* Clean white background */
+    -fx-border-color: #e1e6f0;
+    -fx-border-radius: 0px 12px 12px 0px;
+    -fx-background-radius: 0px 12px 12px 0px;
+    -fx-padding: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 2, 2);
 }
 
 .dashboard-sidebar-button {
-    -fx-background-color: #edf4ff;        /* Soft blue */
-    -fx-border-color: #c8dffa;            /* Light border */
-    -fx-border-radius: 8px;               /* Rounded buttons */
+    -fx-background-color: #f0f8ff; /* Light blue */
+    -fx-border-color: #c6e0f7;
+    -fx-text-fill: #0056a4;
+    -fx-border-radius: 8px;
     -fx-background-radius: 8px;
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 14px;
-    -fx-font-weight: 500;
-    -fx-text-fill: #0a6cc7;               /* Bright text color */
-    -fx-padding: 10px 16px;               /* Standard padding */
-    -fx-cursor: hand;
-    -fx-transition: all 0.3s ease-in-out;
+    -fx-padding: 10px 16px;
 }
 
 .dashboard-sidebar-button:hover {
-    -fx-background-color: #d8e9ff;        /* Darker blue hover */
-    -fx-border-color: #a9c9f4;            /* Matching hover border */
-    -fx-text-fill: #004c99;               /* Deeper text color */
-    -fx-effect: dropshadow(gaussian, rgba(0, 76, 153, 0.4), 6, 0, 0, 3);
+    -fx-background-color: #e2f1ff; /* Darker hover */
+    -fx-border-color: #9fc8f0;
+    -fx-text-fill: #003f7e;
 }
 
-.active-sidebar-button {
-    -fx-background-color: #dcefff;      /* Active state background */
-    -fx-border-radius: 8px;            /* Rounded corners */
-    -fx-background-radius: 8px;        /* Matches the border radius */
-    -fx-border-width: 2px;             /* Add a sharp border */
-    -fx-border-color: #5a99e4;         /* Matching text color */
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 14px;
-    -fx-font-weight: 600;              /* Slightly bolder text */
-    -fx-text-fill: #5a99e4;            /* Text color */
-    -fx-padding: 10px 16px;            /* Balanced padding */
-    -fx-effect: dropshadow(gaussian, rgba(90, 153, 228, 0.3), 5, 0, 0, 2);
-    -fx-cursor: hand;                  /* Pointer cursor */
-    -fx-transition: all 0.3s ease-in-out;
+/* Cards */
+.crypto-card, .portfolio-card, .base-card {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 2, 2);
 }
 
-.active-sidebar-button:hover {
-    -fx-background-color: #c0dbf4;     /* Slightly darker hover shade */
-    -fx-text-fill: #3d78c7;            /* Stronger contrast */
-    -fx-border-color: #3d78c7;         /* Matching hover border */
-    -fx-effect: dropshadow(gaussian, rgba(61, 120, 199, 0.5), 8, 0, 0, 4);
-}
-
-.crypto-card {
-    -fx-background-color: #ffffff; /* Card background */
-    -fx-border-radius: 8px;       /* Rounded corners */
-    -fx-background-radius: 8px;  /* Match border radius */
-    -fx-padding: 12px 16px;       /* Internal padding */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 2, 2); /* Softer shadow */
-}
-
-.crypto-name {
-    -fx-font-family: "Inter", sans-serif;
+/* Card Titles */
+.crypto-name, .portfolio-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #004aad; /* Deeper blue */
+    -fx-text-fill: #0056a4; /* Vibrant blue */
 }
 
-.crypto-value {
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 16px;
-    -fx-font-weight: 500;
+.crypto-value, .portfolio-value {
+    -fx-font-size: 14px;
     -fx-text-fill: #616161; /* Neutral gray */
 }
 
-.scroll-pane {
-    -fx-background-color: transparent;
-    -fx-background: transparent;
-    -fx-border-color: transparent;
-    -fx-padding: 0;
-}
-
-.portfolio-card {
-    -fx-background-color: #ffffff;
-    -fx-background-radius: 12px;
-    -fx-border-color: #e1e6f0;
-    -fx-border-radius: 12px;
-    -fx-padding: 20px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 5);
-}
-
-.portfolio-title {
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #4c576a; /* Modern gray */
-}
-
-.portfolio-value {
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 32px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2168e5; /* Bold blue */
-}
-
+/* Header */
 .dashboard-header {
-    -fx-background-color: linear-gradient(to right, #ffffff, #e9f2fa);
+    -fx-background-color: linear-gradient(to right, #e9f5ff, #ffffff);
     -fx-padding: 15px 20px;
     -fx-border-color: #d1dbe8;
     -fx-border-radius: 8px;
@@ -148,73 +94,111 @@ button:hover {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 5, 0, 0, 3);
 }
 
-.profile-image {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0, 0, 2);
-    -fx-background-radius: 30;
-}
-
-.user-name {
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 18px;
+.label.header-title {
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #203a67; /* Rich blue */
+    -fx-text-fill: #0056a4; /* Vibrant blue */
 }
 
-.user-email, .account-info {
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 14px;
-    -fx-text-fill: #6c7a93; /* Modern neutral */
+/* Table Styling */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #dce1e8;
 }
 
-.greeting {
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #1a75e5; /* Bright blue */
+.table-view .column-header {
+    -fx-background-color: #e9f5ff;
+    -fx-text-fill: #0056a4; /* Dark blue */
+    -fx-padding: 10px;
 }
 
-.last-login {
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 12px;
-    -fx-text-fill: #7e8ba0; /* Subtle gray */
-}
-
-.h3-title {
-    -fx-fill: #ADADAD;
-    -fx-font-family: "Poppins";
-    -fx-font-size: 14px;
-    -fx-font-weight: 600;
-}
-
-.combo-box-input {
-    -fx-padding: 8px;
-    -fx-border-radius: 7px;
-    -fx-background-radius: 7px;
-    -fx-background-color: #EDEBF5;
-
-}
-
-.card-selected {
-    -fx-border-color: #1A75E5;
-    -fx-border-width: 3px;
-    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 5);
-}
-
-.base-card {
+.table-cell {
     -fx-background-color: #ffffff;
-    -fx-border-radius: 12px;
-    -fx-background-radius: 12px;
-    -fx-border-color: #e1e6f0;
-    -fx-padding: 4px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 5);
+    -fx-text-fill: #2c3e50; /* Neutral gray */
 }
 
-.card-header {
-    -fx-fill: #000;
-    -fx-font-family: Poppins;
-    -fx-font-style: normal;
-    -fx-font-size: 18px;
-    -fx-font-weight: 500;
-    -fx-line-height: normal;
-    -fx-letter-spacing: 1.8px;
+.table-row-cell:odd .table-cell {
+    -fx-background-color: #f9fbff; /* Subtle row striping */
 }
+
+
+/*
+style corrections... should cascade
+*/
+
+/*!* Root Container *!*/
+/*.root {*/
+/*    -fx-background-color: #f5f7fa; !* Light neutral gray *!*/
+/*    -fx-font-family: "Inter", sans-serif;*/
+/*}*/
+
+/*!* Sidebar *!*/
+/*.dashboard-sidebar {*/
+/*    -fx-background-color: #ffffff; !* Pure white for sidebar *!*/
+/*    -fx-border-color: #dce1e8;*/
+/*    -fx-padding: 16px;*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 2, 2);*/
+/*}*/
+
+/*!* Cards *!*/
+/*.crypto-card, .portfolio-card, .base-card {*/
+/*    -fx-background-color: #ffffff; !* Pure white *!*/
+/*    -fx-border-radius: 8px;*/
+/*    -fx-padding: 16px;*/
+/*    -fx-margin: 8px; !* Add space between cards *!*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 2, 2);*/
+/*}*/
+
+/*!* Card Titles *!*/
+/*.crypto-name, .portfolio-title {*/
+/*    -fx-font-size: 16px;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-text-fill: #2c3e50; !* Modern dark gray *!*/
+/*}*/
+
+/*!* Chart Area *!*/
+/*.chart {*/
+/*    -fx-background-color: #ffffff; !* White background for consistency *!*/
+/*    -fx-border-color: #dce1e8;*/
+/*    -fx-padding: 8px;*/
+/*}*/
+
+/*!* Table *!*/
+/*.table-view {*/
+/*    -fx-background-color: #ffffff; !* White for table background *!*/
+/*    -fx-border-color: #dce1e8;*/
+/*}*/
+
+/*.table-view .column-header {*/
+/*    -fx-background-color: #e9f5ff; !* Soft blue header *!*/
+/*    -fx-text-fill: #0056a4;*/
+/*    -fx-border-color: transparent; !* Remove any unintended border gaps *!*/
+/*}*/
+
+/*.table-view .column-header .label {*/
+/*    -fx-alignment: center-left; !* Align header text to the left *!*/
+/*}*/
+
+/*.table-cell {*/
+/*    -fx-background-color: #ffffff;*/
+/*    -fx-text-fill: #2c3e50; !* Dark gray text *!*/
+/*}*/
+
+/*.table-row-cell:odd .table-cell {*/
+/*    -fx-background-color: #f9fbff; !* Subtle row striping *!*/
+/*}*/
+
+/*!* Header *!*/
+/*.dashboard-header {*/
+/*    -fx-background-color: #ffffff; !* White for consistency *!*/
+/*    -fx-padding: 15px 20px;*/
+/*    -fx-border-color: #d1dbe8;*/
+/*    -fx-border-radius: 8px;*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 5, 0, 0, 3);*/
+/*}*/
+
+/*.label.header-title {*/
+/*    -fx-font-size: 24px;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-text-fill: #0056a4; !* Vibrant blue *!*/
+/*}*/
