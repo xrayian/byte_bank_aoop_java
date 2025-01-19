@@ -147,7 +147,8 @@ public class HttpClientHelper {
     // Helper method to validate the response
     private void validateResponse(HttpResponse<String> response) throws Exception {
         if (response.statusCode() >= 400) {
-            throw new Exception("HTTP error: " + response.statusCode() + " - " + response.body());
+            System.err.println("HTTP error: " + response.statusCode() + " - " + response.body());
+//            throw new Exception("HTTP error: " + response.statusCode() + " - " + response.body());
         }
     }
 }
