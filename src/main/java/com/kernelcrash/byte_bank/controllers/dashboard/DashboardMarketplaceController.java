@@ -22,9 +22,12 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.math.BigDecimal;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class DashboardMarketplaceController {
 
@@ -61,22 +64,40 @@ public class DashboardMarketplaceController {
     @FXML
     private VBox primary_chart;
 
+    private ComboBox<String> currencyDropdown = new ComboBox<>();
+
     private final HashMap<String, XYChart.Series<String, Number>> seriesMap = new HashMap<>();
     private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("hh:mm:ss");
-    private final DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("MMM");
+    private final DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     @FXML
     private void initialize() {
         showLoader(true, "Loading data...");
         configureTableColumns();
         loadMarketplace();
-        loadHistoricalData();
+        populateDropdown();
+        loadHistoricalData("BTC");
         setupUI();
         System.out.println("DashboardMarketplaceController initialized");
     }
 
+    private void populateDropdown() {
+        currencyDropdown.getItems().addAll(seriesMap.keySet());
+        currencyDropdown.getSelectionModel().selectFirst();
+        currencyDropdown.setId("currencyDropdown");
+        currencyDropdown.setPlaceholder(new Label("Select a currency"));
+        currencyDropdown.setOnAction(event -> {
+            if (mainChart.getData().size() > 0) {
+                mainChart.getData().clear();
+            }
+            String selectedCurrency = currencyDropdown.getSelectionModel().getSelectedItem();
+            mainChart.getData().clear();
+            loadHistoricalData(selectedCurrency);
+        });
+        primary_chart.getChildren().add(0, currencyDropdown);
+    }
+
     private void setupUI() {
-        p_chart_label.setText("Marketplace Chart");
         tableTimeline.setCycleCount(Animation.INDEFINITE);
         tableTimeline.play();
     }
@@ -85,28 +106,15 @@ public class DashboardMarketplaceController {
         symbolColumn.setCellValueFactory(new PropertyValueFactory<>("currency"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("currency"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("unitCurrencyValueInUSD"));
-        changeColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(BigDecimal changePercentage, boolean empty) {
-                super.updateItem(changePercentage, empty);
-                if (empty || changePercentage == null) {
-                    setText("-- %");
-                } else {
-                    setText(changePercentage.toPlainString() + "%");
-                    getStyleClass().add("amount-cell");
-                    if (changePercentage.compareTo(BigDecimal.ZERO) < 0) {
-                        getStyleClass().add("negative");
-                    }
-                }
-            }
-        });
+        changeColumn.setCellValueFactory(new PropertyValueFactory<>("changePercentage"));
     }
 
     Timeline tableTimeline = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
-        //String timeStamp = LocalDateTime.now().format(fmt);
         initHashMap();
         updateTableLatestPricesChart();
-        //System.out.println("Updated table at " + timeStamp);
+        if (currencyDropdown.getItems().size() != seriesMap.size()) {
+            currencyDropdown.getItems().addAll(seriesMap.keySet());
+        }
     }));
 
     private void initHashMap() {
@@ -118,7 +126,7 @@ public class DashboardMarketplaceController {
                 series.setName(key);
                 seriesMap.put(key, series);
             });
-            mainChart.getData().addAll(seriesMap.get("BTC"), seriesMap.get("ETH"), seriesMap.get("LTC"));
+            mainChart.getData().addAll(seriesMap.values());
         }
     }
 
@@ -167,18 +175,24 @@ public class DashboardMarketplaceController {
         loadThread.start();
     }
 
-    private void loadHistoricalData() {
+    private void loadHistoricalData(String symbol) {
         Platform.runLater(() -> {
             try {
-                CryptoDataFetcher.fetchHistoricalData("BTC", "USD", 1, 24);
+                CryptoDataFetcher.fetchHistoricalData(symbol, "USD", 24, 10);
                 System.out.println("Loading historical data...");
                 HashMap<Date, CryptoDataFetcher.OHLCData> ohlcData = CurrencyDataStore.getOHLCMap();
                 XYChart.Series<String, Number> series = new XYChart.Series<>();
 
+                //sort by date
+                ohlcData = ohlcData.entrySet().stream()
+                        .sorted(Map.Entry.comparingByKey())
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+
                 for (Map.Entry<Date, CryptoDataFetcher.OHLCData> entry : ohlcData.entrySet()) {
-                    String time = entry.getValue().time;
+                    TemporalAccessor date = entry.getValue().date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     BigDecimal close = entry.getValue().close;
-                    series.getData().add(new XYChart.Data<>(time, close));
+                    series.getData().add(new XYChart.Data<>(fmt2.format(date), close));
                 }
 
                 mainChart.getData().add(series);

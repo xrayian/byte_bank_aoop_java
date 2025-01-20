@@ -72,7 +72,7 @@ public class CryptoDataFetcher {
 
         public OHLCData(String time, BigDecimal open, BigDecimal high, BigDecimal low, BigDecimal close) {
             this.time = time;
-            date = new Date(Long.parseLong(time));
+            date = new Date(Long.parseLong(time)*1000);
             this.open = open;
             this.high = high;
             this.low = low;
