@@ -17,6 +17,7 @@ module com.kernelcrash.byte_bank {
     requires org.kordamp.ikonli.materialdesign2;
 
 
+    opens com.kernelcrash.byte_bank.utils to com.google.gson;
     opens com.kernelcrash.byte_bank.models to com.google.gson, javafx.base;
     opens com.kernelcrash.byte_bank to javafx.fxml;
     opens com.kernelcrash.byte_bank.controllers.dashboard to javafx.fxml;

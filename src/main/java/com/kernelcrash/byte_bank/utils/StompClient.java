@@ -26,7 +26,8 @@ public class StompClient {
 
         @Override
         public void handleFrame(StompHeaders headers, Object payload) {
-            System.out.println("Received data");
+//            System.out.println("Received data");
+
             CurrencyDataStore.parseCoinbaseJSONData((String) payload);
         }
     };

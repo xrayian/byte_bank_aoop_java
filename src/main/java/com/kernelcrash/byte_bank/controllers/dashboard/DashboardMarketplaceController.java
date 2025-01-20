@@ -1,8 +1,7 @@
 package com.kernelcrash.byte_bank.controllers.dashboard;
 
 import com.kernelcrash.byte_bank.models.CurrencyUSDValue;
-import com.kernelcrash.byte_bank.utils.BinanceDataFetcher;
-import com.kernelcrash.byte_bank.utils.CandleStickChart;
+import com.kernelcrash.byte_bank.utils.CryptoDataFetcher;
 import com.kernelcrash.byte_bank.utils.CurrencyDataStore;
 import com.kernelcrash.byte_bank.utils.StompClient;
 import javafx.animation.Animation;
@@ -23,8 +22,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -93,7 +90,7 @@ public class DashboardMarketplaceController {
             protected void updateItem(BigDecimal changePercentage, boolean empty) {
                 super.updateItem(changePercentage, empty);
                 if (empty || changePercentage == null) {
-                    setText(0 + "%");
+                    setText("-- %");
                 } else {
                     setText(changePercentage.toPlainString() + "%");
                     getStyleClass().add("amount-cell");
@@ -106,17 +103,17 @@ public class DashboardMarketplaceController {
     }
 
     Timeline tableTimeline = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
-        String timeStamp = LocalDateTime.now().format(fmt);
+        //String timeStamp = LocalDateTime.now().format(fmt);
         initHashMap();
         updateTableLatestPricesChart();
-        System.out.println("Updated table at " + timeStamp);
+        //System.out.println("Updated table at " + timeStamp);
     }));
 
     private void initHashMap() {
-        if (CurrencyDataStore.getCurrencyList().isEmpty() && seriesMap.isEmpty()) {
-            System.out.println("CurrencyDataStore is empty. Waiting for data...");
+        if (CurrencyDataStore.getLatestCurrencyPriceList().isEmpty() && seriesMap.isEmpty()) {
+            //System.out.println("CurrencyDataStore is empty. Waiting for data...");
         } else if (seriesMap.isEmpty()) {
-            CurrencyDataStore.getCurrencyList().forEach((key, value) -> {
+            CurrencyDataStore.getLatestCurrencyPriceList().forEach((key, value) -> {
                 XYChart.Series<String, Number> series = new XYChart.Series<>();
                 series.setName(key);
                 seriesMap.put(key, series);
@@ -127,7 +124,7 @@ public class DashboardMarketplaceController {
 
     private void updateTableLatestPricesChart() {
         ObservableList<CurrencyUSDValue> mostValuableCurrencies = FXCollections.observableArrayList(
-                CurrencyDataStore.getCurrencyList().values().stream()
+                CurrencyDataStore.getLatestCurrencyPriceList().values().stream()
                         .sorted(Comparator.comparing(CurrencyUSDValue::getUnitCurrencyValueInUSD).reversed())
                         .limit(15)
                         .toList()
@@ -137,7 +134,7 @@ public class DashboardMarketplaceController {
             marketTable.setItems(mostValuableCurrencies);
             marketTable.refresh();
         });
-        System.out.println("Updated table with latest prices");
+        //System.out.println("Updated table with latest prices");
     }
 
     public void loadMarketplace() {
@@ -172,19 +169,22 @@ public class DashboardMarketplaceController {
 
     private void loadHistoricalData() {
         Platform.runLater(() -> {
-        try {
-            List<BinanceDataFetcher.OHLCData> ohlcData = BinanceDataFetcher.fetchBinanceData("BTCUSDT", "1w", 40);
-            // Populate new data
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            for (BinanceDataFetcher.OHLCData data : ohlcData) {
-                //String time = LocalDateTime.ofEpochSecond(Long.parseLong(data.time) / 1000, 0, null).format(fmt2);
-                //very slow this part
-                series.getData().add(new XYChart.Data<>(data.date.toString(), data.close));
+            try {
+                CryptoDataFetcher.fetchHistoricalData("BTC", "USD", 1, 24);
+                System.out.println("Loading historical data...");
+                HashMap<Date, CryptoDataFetcher.OHLCData> ohlcData = CurrencyDataStore.getOHLCMap();
+                XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+                for (Map.Entry<Date, CryptoDataFetcher.OHLCData> entry : ohlcData.entrySet()) {
+                    String time = entry.getValue().time;
+                    BigDecimal close = entry.getValue().close;
+                    series.getData().add(new XYChart.Data<>(time, close));
+                }
+
+                mainChart.getData().add(series);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            mainChart.getData().add(series);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         });
     }
 

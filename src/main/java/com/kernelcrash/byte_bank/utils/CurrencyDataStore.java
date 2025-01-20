@@ -1,26 +1,30 @@
 package com.kernelcrash.byte_bank.utils;
 
 import com.google.gson.JsonElement;
+import com.kernelcrash.byte_bank.models.ChartData;
 import com.kernelcrash.byte_bank.models.CurrencyUSDValue;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CurrencyDataStore {
-    static HashMap<String, CurrencyUSDValue> currencyList = new HashMap<>();
-    static HashMap<String, CurrencyUSDValue> previousCurrencyList = new HashMap<>();
+    static HashMap<String, CurrencyUSDValue> latestCurrencyPriceList = new HashMap<>();
+    static HashMap<String, CurrencyUSDValue> previousCurrencyPriceList = new HashMap<>();
+    static HashMap<Date, CryptoDataFetcher.OHLCData> ohlcDataHashMap = new HashMap<>();
 
-    synchronized public static HashMap<String, CurrencyUSDValue> getCurrencyList() {
-        return currencyList;
+    synchronized public static HashMap<String, CurrencyUSDValue> getLatestCurrencyPriceList() {
+        return latestCurrencyPriceList;
     }
 
-    synchronized public static void setCurrencyList(HashMap<String, CurrencyUSDValue> currencyList) {
-        previousCurrencyList = CurrencyDataStore.currencyList;
-        CurrencyDataStore.currencyList = currencyList;
+    synchronized public static void setLatestCurrencyPriceList(HashMap<String, CurrencyUSDValue> latestCurrencyPriceList) {
+        previousCurrencyPriceList = CurrencyDataStore.latestCurrencyPriceList;
+        CurrencyDataStore.latestCurrencyPriceList = latestCurrencyPriceList;
     }
 
     public static void parseCoinbaseJSONData(String json) {
@@ -33,8 +37,8 @@ public class CurrencyDataStore {
             BigDecimal value = entry.getValue().getAsBigDecimal();
             CurrencyUSDValue currencyUSDValue = new CurrencyUSDValue(currency, value);
 
-            if (previousCurrencyList.containsKey(currency)) {
-                BigDecimal previousValue = previousCurrencyList.get(currency).getUnitCurrencyValueInUSD();
+            if (previousCurrencyPriceList.containsKey(currency)) {
+                BigDecimal previousValue = previousCurrencyPriceList.get(currency).getUnitCurrencyValueInUSD();
                 BigDecimal changePercentage = calculateChangePercentage(previousValue, currencyUSDValue);
                 currencyUSDValue.setChangePercentage(changePercentage);
             } else {
@@ -44,7 +48,7 @@ public class CurrencyDataStore {
             currencyList.put(currency, currencyUSDValue);
         }
 
-        setCurrencyList(currencyList);
+        setLatestCurrencyPriceList(currencyList);
     }
 
     private static BigDecimal calculateChangePercentage(BigDecimal previousValue, CurrencyUSDValue currencyUSDValue) {
@@ -63,7 +67,23 @@ public class CurrencyDataStore {
     }
 
 
-    public static HashMap<String, CurrencyUSDValue> getPreviousCurrencyList() {
-        return previousCurrencyList;
+    public static HashMap<String, CurrencyUSDValue> getPreviousCurrencyPriceList() {
+        return previousCurrencyPriceList;
+    }
+
+    synchronized public static HashMap<Date, CryptoDataFetcher.OHLCData> getOHLCMap() {
+        return ohlcDataHashMap;
+    }
+
+    synchronized public static void setOHLCMap(HashMap<Date, CryptoDataFetcher.OHLCData> ohlcDataHashMap) {
+        CurrencyDataStore.ohlcDataHashMap = ohlcDataHashMap;
+    }
+
+    public static void setChartData(List<ChartData> chartData) {
+        HashMap<Date, CryptoDataFetcher.OHLCData> ohlcData = new HashMap<>();
+        for (ChartData data : chartData) {
+            ohlcData.put(data.getDate(), new CryptoDataFetcher.OHLCData(String.valueOf(data.time), data.getOpen(), data.getHigh(), data.getLow(), data.getClose()));
+        }
+        setOHLCMap(ohlcData);
     }
 }
