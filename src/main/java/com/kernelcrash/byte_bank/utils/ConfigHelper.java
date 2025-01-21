@@ -1,8 +1,10 @@
 package com.kernelcrash.byte_bank.utils;
 
+import com.google.gson.Gson;
 import com.kernelcrash.byte_bank.models.User;
 
 import java.io.*;
+import java.net.URISyntaxException;
 
 public class ConfigHelper {
     public static final String BACKEND_API_URL = "http://localhost:8080/api/v1/";
@@ -25,7 +27,32 @@ public class ConfigHelper {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        if (user != null) {
+            System.out.println("User is logged in: " + user.getUsername());
+            try {
+                return refreshUserObject(user.getEmail());
+            } catch (Exception e) {
+                System.err.println("Failed to get latest user object. Using cached object");
+            }
+        }
         return user;
+    }
+
+    private static User refreshUserObject(String email) {
+        HttpClientHelper httpClientHelper = new HttpClientHelper();
+        String apiUrl = ConfigHelper.BACKEND_API_URL + "auth/refresh-user?email=" + email;
+        try {
+            String response = httpClientHelper.sendPost(apiUrl, null, null);
+            if (response != null) {
+                Gson gson = new Gson();
+                User user = gson.fromJson(response, User.class);
+                System.out.println("User refreshed: " + user.getUsername());
+                return user;
+            }
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Failed to refresh user object");
+        }
+        return null;
     }
 
     public static boolean storeLoggedInUserObject() {

@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -149,6 +150,20 @@ public class HttpClientHelper {
         if (response.statusCode() >= 400) {
             System.err.println("HTTP error: " + response.statusCode() + " - " + response.body());
 //            throw new Exception("HTTP error: " + response.statusCode() + " - " + response.body());
+        }
+    }
+
+    public void createWallet(String walletName, String symbol) {
+        walletName = URLEncoder.encode(walletName);
+        String apiUrl = ConfigHelper.BACKEND_API_URL + "transactions/open-wallet?uuid=" + StateManager.getInstance().getCurrentUser().getUserId() + "&walletName=" + walletName + "&symbol=" + symbol;
+        String jsonBody = "";
+        try {
+            String res = sendPost(apiUrl, jsonBody, null);
+            if (res != null) {
+                System.out.println("Wallet created successfully");
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 }

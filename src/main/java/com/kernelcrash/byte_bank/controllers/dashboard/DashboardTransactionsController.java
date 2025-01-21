@@ -99,21 +99,21 @@ public class DashboardTransactionsController {
         StateManager stateManager = StateManager.getInstance();
         stateManager.getCurrentUser().getWallets().forEach(
                 wallet -> {
-                    System.out.println(wallet.getTransactions().get(0).getTimestamp());
-                    wallet.getTransactions().forEach(
-                            transaction -> {
-                                String iconLiteral = transaction.getType().equals("deposit") ? "fas-arrow-down" : "fas-arrow-up";
-                                transactions.add(new TransactionItem(
-                                        iconLiteral,
-                                        wallet.getWalletName(),
-                                        transaction.getType(),
-                                        wallet.getCryptoType(),
-                                        String.format("%.2f", transaction.getAmount()),
-                                        Date.from(Instant.ofEpochMilli(Long.parseLong(transaction.getTimestamp())))
+                    if (wallet.getTransactions() != null)
+                        wallet.getTransactions().forEach(
+                                transaction -> {
+                                    String iconLiteral = transaction.getType().equals("deposit") ? "fas-arrow-down" : "fas-arrow-up";
+                                    transactions.add(new TransactionItem(
+                                            iconLiteral,
+                                            wallet.getWalletName(),
+                                            transaction.getType(),
+                                            wallet.getCryptoType(),
+                                            String.format("%.2f", transaction.getAmount()),
+                                            Date.from(Instant.ofEpochMilli(Long.parseLong(transaction.getTimestamp())))
 
-                                ));
-                            }
-                    );
+                                    ));
+                                }
+                        );
                 }
         );
         if (transactions.isEmpty()) {

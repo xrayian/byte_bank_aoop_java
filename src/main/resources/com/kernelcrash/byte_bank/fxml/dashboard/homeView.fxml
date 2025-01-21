@@ -37,7 +37,7 @@
                         </HBox>
                                 <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minViewportWidth="240.0" pickOnBounds="false" prefHeight="511.0" prefViewportWidth="360.0" prefWidth="401.0" VBox.vgrow="ALWAYS">
                                     <content>
-                                        <VBox fx:id="coin_vbox" prefHeight="66.0" prefWidth="546.0" spacing="5.0" style="-fx-background-color: #EEF3FA;">
+                                        <VBox fx:id="walletContainerVBOX" prefHeight="66.0" prefWidth="546.0" spacing="5.0" style="-fx-background-color: #EEF3FA;">
                                             <children>
                                                 <fx:include source="../cards/crypto-card.fxml" />
                                                 <fx:include source="../cards/crypto-card.fxml" />

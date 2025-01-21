@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -19,7 +18,7 @@
                 <HBox alignment="CENTER" prefWidth="445.0">
                     <children>
                         <Label text="Wallet Name" />
-                        <TextField prefWidth="145.0" HBox.hgrow="ALWAYS">
+                        <TextField id="walletNameField" prefWidth="145.0" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
                             </HBox.margin>
@@ -37,12 +36,12 @@
                     </children>
                 </HBox>
                 <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-                <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                    <buttons>
-                        <Button mnemonicParsing="false" text="Cancel" />
-                        <Button mnemonicParsing="false" text="Save" />
-                    </buttons>
-                </ButtonBar>
+            <HBox alignment="CENTER_RIGHT" spacing="5.0">
+               <children>
+                        <Button id="cancelBtn" mnemonicParsing="false" text="Cancel" />
+                        <Button id="createWalletBtn" mnemonicParsing="false" text="Save" />
+               </children>
+            </HBox>
             </children>
         </VBox>
     </children>
