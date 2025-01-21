@@ -10,6 +10,10 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class CryptoDataFetcher {
+
+    /// Fetches the latest data from the backend API
+    /// and populates the CurrencyDataStore with the data
+    /// data can be found in `CurrencyDataStore` class 'getOHLCMap' method
     public static void fetchHistoricalData(String fsymbol, String tosymbol, int aggregate, int limit) throws Exception {
         String apiUrl = ConfigHelper.BACKEND_API_URL + "crypto-data/getKlines?fsymbol=" + fsymbol + "&tosymbol=" + tosymbol + "&aggregate=" + aggregate + "&limit=" + limit;
 
@@ -27,30 +31,13 @@ public class CryptoDataFetcher {
         Gson gson = new Gson();
         List responseObj = gson.fromJson(response, List.class);
 
-        if (responseObj.isEmpty() || responseObj == null) {
-
+        if (responseObj == null) {
             System.err.println("Failed to parse JSON response");
             return;
         }
 
-
-//        List<OHLCData> ohlcDataList = new ArrayList<>();
-//        for (int i = 0; i < jsonArray.size(); i++) {
-//            JsonArray data = jsonArray.get(i).getAsJsonArray();
-//            String time = data.get(0).getAsString();
-//            BigDecimal open = data.get(1).getAsBigDecimal();
-//            BigDecimal high = data.get(2).getAsBigDecimal();
-//            BigDecimal low = data.get(3).getAsBigDecimal();
-//            BigDecimal close = data.get(4).getAsBigDecimal();
-//            OHLCData ohlcData = new OHLCData(time, open, high, low, close);
-//            ohlcDataList.add(ohlcData);
-//        }
-//
-//        //populate the CurrencyDataStore with the data
-//        CurrencyDataStore.setOHLCMap((HashMap<Date, OHLCData>) ohlcDataList);
-
-
         //populate the CurrencyDataStore with the data
+
         HashMap<Date, OHLCData> ohlcDataHashMap = new HashMap<>();
         if (!responseObj.isEmpty() && responseObj != null) {
             responseObj.forEach(item -> {
@@ -59,8 +46,7 @@ public class CryptoDataFetcher {
                 ohlcDataHashMap.put(ohlcData.date, ohlcData);
             });
 
-            CurrencyDataStore.setOHLCMap(ohlcDataHashMap);
-
+            CurrencyDataStore.setOHLCMap(fsymbol, ohlcDataHashMap);
 
         }
     }

@@ -5,7 +5,6 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -14,12 +13,12 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="521.0" prefWidth="1100.0" style="-fx-background-color: #f7faff;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardMarketplaceController">
+<AnchorPane prefHeight="727.0" prefWidth="1100.0" style="-fx-background-color: #f7faff;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardMarketplaceController">
    <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="4.800000190734863" prefHeight="799.0" prefWidth="1100.0" style="-fx-background-color: #f7faff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <content>
          <VBox spacing="10.0" style="-fx-background-color: #f7faff;">
             <children>
-               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="446.0" prefWidth="1062.0" style="-fx-background-color: #f7faff;">
+               <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="446.0" prefWidth="1062.0" style="-fx-background-color: #f7faff;">
                   <content>
                       <!-- Top Cards -->
                       <HBox fx:id="info_card_hbox" prefHeight="393.0" prefWidth="1160" spacing="10.0" style="-fx-background-color: #f7faff;">
@@ -97,10 +96,9 @@
          </VBox>
       </content>
    </ScrollPane>
-   <StackPane fx:id="loaderPane" prefHeight="700.0" prefWidth="1100.0" visible="false">
+   <StackPane fx:id="loaderPane" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-         <ProgressIndicator prefHeight="66.0" prefWidth="121.0" progress="0.0" />
-         <Label fx:id="ltxt" prefHeight="110.0" prefWidth="162.0" text="Label" />
+         <Label fx:id="ltxt" alignment="CENTER" prefHeight="110.0" prefWidth="162.0" text="Please Wait..." textAlignment="CENTER" />
       </children>
    </StackPane>
 </AnchorPane>

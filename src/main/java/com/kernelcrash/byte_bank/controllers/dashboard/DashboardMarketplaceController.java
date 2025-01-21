@@ -3,14 +3,12 @@ package com.kernelcrash.byte_bank.controllers.dashboard;
 import com.kernelcrash.byte_bank.models.CurrencyUSDValue;
 import com.kernelcrash.byte_bank.utils.CryptoDataFetcher;
 import com.kernelcrash.byte_bank.utils.CurrencyDataStore;
-import com.kernelcrash.byte_bank.utils.StompClient;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -26,7 +24,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class DashboardMarketplaceController {
@@ -66,38 +63,54 @@ public class DashboardMarketplaceController {
 
     private ComboBox<String> currencyDropdown = new ComboBox<>();
 
-    private final HashMap<String, XYChart.Series<String, Number>> seriesMap = new HashMap<>();
+    //private final HashMap<String, XYChart.Series<String, Number>> seriesMap = new HashMap<>();
     private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("hh:mm:ss");
     private final DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     @FXML
     private void initialize() {
-        showLoader(true, "Loading data...");
         configureTableColumns();
-        loadMarketplace();
-        populateDropdown();
-        loadHistoricalData("BTC");
+        initializeCurrencyDropdown();
+        loadHistoricalDataAndPopulateMainChart("BTC");
         setupUI();
-        System.out.println("DashboardMarketplaceController initialized");
+        Platform.runLater(() -> {
+            if(CurrencyDataStore.getLatestCurrencyPriceList().isEmpty()) {
+                showLoader(true, "Loading data...");
+            } else {
+                showLoader(false, null);
+            }
+        });
+        System.out.println("DashboardMarketplaceController Initialized...");
     }
 
-    private void populateDropdown() {
-        currencyDropdown.getItems().addAll(seriesMap.keySet());
-        currencyDropdown.getSelectionModel().selectFirst();
-        currencyDropdown.setId("currencyDropdown");
+    //Populates the main chart with the available currencies
+    private void initializeCurrencyDropdown() {
+
         currencyDropdown.setPlaceholder(new Label("Select a currency"));
+        currencyDropdown.getItems().addAll(CurrencyDataStore.getLatestCurrencyPriceList().keySet());
+        currencyDropdown.getItems().sort(Comparator.naturalOrder());
+        currencyDropdown.getSelectionModel().select("BTC");
+
         currencyDropdown.setOnAction(event -> {
-            if (mainChart.getData().size() > 0) {
+            // todo change the chart title and set chart data from fetched historical data
+            if (!mainChart.getData().isEmpty()) {
                 mainChart.getData().clear();
             }
+
             String selectedCurrency = currencyDropdown.getSelectionModel().getSelectedItem();
             mainChart.getData().clear();
-            loadHistoricalData(selectedCurrency);
+
+            Platform.runLater(() -> {
+//                p_chart_label.setText("Historical data for " + selectedCurrency);
+                loadHistoricalDataAndPopulateMainChart(selectedCurrency);
+            });
         });
+
         primary_chart.getChildren().add(0, currencyDropdown);
     }
 
     private void setupUI() {
+        marketTable.setPlaceholder(new Label("Loading data..."));
         tableTimeline.setCycleCount(Animation.INDEFINITE);
         tableTimeline.play();
     }
@@ -109,82 +122,38 @@ public class DashboardMarketplaceController {
         changeColumn.setCellValueFactory(new PropertyValueFactory<>("changePercentage"));
     }
 
-    Timeline tableTimeline = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
-        initHashMap();
+    Timeline tableTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
         updateTableLatestPricesChart();
-        if (currencyDropdown.getItems().size() != seriesMap.size()) {
-            currencyDropdown.getItems().addAll(seriesMap.keySet());
-        }
     }));
 
-    private void initHashMap() {
-        if (CurrencyDataStore.getLatestCurrencyPriceList().isEmpty() && seriesMap.isEmpty()) {
-            //System.out.println("CurrencyDataStore is empty. Waiting for data...");
-        } else if (seriesMap.isEmpty()) {
-            CurrencyDataStore.getLatestCurrencyPriceList().forEach((key, value) -> {
-                XYChart.Series<String, Number> series = new XYChart.Series<>();
-                series.setName(key);
-                seriesMap.put(key, series);
-            });
-            mainChart.getData().addAll(seriesMap.values());
-        }
-    }
-
     private void updateTableLatestPricesChart() {
-        ObservableList<CurrencyUSDValue> mostValuableCurrencies = FXCollections.observableArrayList(
-                CurrencyDataStore.getLatestCurrencyPriceList().values().stream()
-                        .sorted(Comparator.comparing(CurrencyUSDValue::getUnitCurrencyValueInUSD).reversed())
-                        .limit(15)
-                        .toList()
-        );
+        ObservableList<CurrencyUSDValue> mostValuableCurrencies =
+                FXCollections.observableArrayList(
+                        CurrencyDataStore.getLatestCurrencyPriceList().values().stream()
+                                .sorted(Comparator.comparing(CurrencyUSDValue::getUnitCurrencyValueInUSD).reversed())
+                                .limit(15)
+                                .toList());
 
         Platform.runLater(() -> {
             marketTable.setItems(mostValuableCurrencies);
             marketTable.refresh();
+            showLoader(false, null);
         });
         //System.out.println("Updated table with latest prices");
     }
 
-    public void loadMarketplace() {
-        Task<Void> loadTask = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                try {
-                    StompClient.fetchCryptoDataFeed();
-                } catch (ExecutionException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                return null;
-            }
 
-            @Override
-            protected void succeeded() {
-                super.succeeded();
-                showLoader(false, null);
-            }
-
-            @Override
-            protected void failed() {
-                super.failed();
-                showLoader(false, "Failed to load data.");
-            }
-        };
-
-        Thread loadThread = new Thread(loadTask);
-        loadThread.setDaemon(true);
-        loadThread.start();
-    }
-
-    private void loadHistoricalData(String symbol) {
+    private void loadHistoricalDataAndPopulateMainChart(String symbol) {
         Platform.runLater(() -> {
             try {
+                //fetch historical data and save it to the CurrencyDataStore
                 CryptoDataFetcher.fetchHistoricalData(symbol, "USD", 24, 10);
                 System.out.println("Loading historical data...");
-                HashMap<Date, CryptoDataFetcher.OHLCData> ohlcData = CurrencyDataStore.getOHLCMap();
+                Map<Date, CryptoDataFetcher.OHLCData> ohlcData = CurrencyDataStore.getOHLCMap(symbol);
                 XYChart.Series<String, Number> series = new XYChart.Series<>();
 
                 //sort by date
-                ohlcData = ohlcData.entrySet().stream()
+                CurrencyDataStore.getOHLCMap(symbol).entrySet().stream()
                         .sorted(Map.Entry.comparingByKey())
                         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
@@ -195,10 +164,12 @@ public class DashboardMarketplaceController {
                     series.getData().add(new XYChart.Data<>(fmt2.format(date), close));
                 }
 
-                mainChart.getData().add(series);
+                mainChart.getData().add(series); //this probably is the line responsible for the change
+
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println(e);
             }
+
         });
     }
 

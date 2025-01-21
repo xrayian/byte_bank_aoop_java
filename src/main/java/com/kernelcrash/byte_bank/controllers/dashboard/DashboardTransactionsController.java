@@ -1,5 +1,7 @@
 package com.kernelcrash.byte_bank.controllers.dashboard;
 
+import com.kernelcrash.byte_bank.utils.StateManager;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.collections.FXCollections;
@@ -11,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 public class DashboardTransactionsController {
@@ -93,15 +96,29 @@ public class DashboardTransactionsController {
     private void populateTransactions() {
         // Add transactions to the table
         ObservableList<TransactionItem> transactions = FXCollections.observableArrayList();
+        StateManager stateManager = StateManager.getInstance();
+        stateManager.getCurrentUser().getWallets().forEach(
+                wallet -> {
+                    System.out.println(wallet.getTransactions().get(0).getTimestamp());
+                    wallet.getTransactions().forEach(
+                            transaction -> {
+                                String iconLiteral = transaction.getType().equals("deposit") ? "fas-arrow-down" : "fas-arrow-up";
+                                transactions.add(new TransactionItem(
+                                        iconLiteral,
+                                        wallet.getWalletName(),
+                                        transaction.getType(),
+                                        wallet.getCryptoType(),
+                                        String.format("%.2f", transaction.getAmount()),
+                                        Date.from(Instant.ofEpochMilli(Long.parseLong(transaction.getTimestamp())))
 
-        for (int i = 0; i < 60; i++) {
-            String accountName = 1012234436578853L * (i + 3 * 2) + "";
-            if (i % 2 == 0)
-                transactions.add(new TransactionItem("fas-arrow-left", accountName, "Withdrawal", "BTC", "-0.5", new Date()));
-            else
-                transactions.add(new TransactionItem("fas-arrow-right", accountName, "Deposit", "BTC", "+0.5", new Date()));
+                                ));
+                            }
+                    );
+                }
+        );
+        if (transactions.isEmpty()) {
+            transactionsTable.setPlaceholder(new Label("No transactions found"));
         }
-
         transactionsTable.setItems(transactions);
     }
 

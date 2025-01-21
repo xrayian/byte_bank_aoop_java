@@ -14,9 +14,10 @@ public class StompClient {
     private static final WebSocketClient client = new StandardWebSocketClient();
     private static final WebSocketStompClient stompClient = new WebSocketStompClient(client);
     private static final StompSessionHandlerAdapter sessionHandler = new StompSessionHandlerAdapter() {
+
         @Override
         public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-            System.out.println("Connected to the server");
+            System.out.println("WebSocket session established...");
         }
 
         @Override
@@ -26,12 +27,12 @@ public class StompClient {
 
         @Override
         public void handleFrame(StompHeaders headers, Object payload) {
-//            System.out.println("Received data");
-
             CurrencyDataStore.parseCoinbaseJSONData((String) payload);
         }
     };
 
+    /// Fetches data from the WebSocket endpoint and parses it
+    /// data can be found in `CurrencyDataStore` class
     public static void fetchCryptoDataFeed() throws ExecutionException, InterruptedException {
         stompClient.setMessageConverter(new StringMessageConverter());
         String url = ConfigHelper.WS_CRYPTO_SOCKET_URL;

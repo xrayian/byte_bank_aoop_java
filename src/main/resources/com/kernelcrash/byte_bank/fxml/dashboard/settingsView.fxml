@@ -18,7 +18,7 @@
 <AnchorPane prefHeight="786.0" prefWidth="701.0" style="-fx-background-color: #f7faff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardSettingsController">
    <VBox layoutY="-0.800000011920929" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-         <ScrollPane hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+         <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" VBox.vgrow="ALWAYS">
             <content>
             
                             <!-- Main Content -->

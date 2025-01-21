@@ -1,12 +1,19 @@
 package com.kernelcrash.byte_bank.controllers.dashboard;
 
 import com.kernelcrash.byte_bank.MainApplication;
+import com.kernelcrash.byte_bank.utils.CurrencyDataStore;
 import com.kernelcrash.byte_bank.utils.StateManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -24,12 +31,19 @@ public class DashboardHomeController {
     @FXML
     VBox header_vbox;
 
+    @FXML
+    Button addWalletBtn;
+
 
     @FXML
     private void initialize() {
         setUserDetails();
         loadCoinList();
         loadPortfolio();
+        addWalletBtn.setOnAction(e -> {
+            //showCustomAlert("Coming Soon", "This feature is coming soon. Stay tuned!");
+            showWalletCreationCard();
+        });
         System.out.println("DashboardHomeController initialized");
     }
 
@@ -48,11 +62,11 @@ public class DashboardHomeController {
 
                 username.setText(stateManager.getCurrentUser().getUsername());
                 email.setText(stateManager.getCurrentUser().getEmail());
-                last_login.setText("Last Login: "+stateManager.getCurrentUser().getUpdatedAt().format(formatter));
-                acc_no.setText("Account No: "+stateManager.getCurrentUser().getUserId());
+                last_login.setText("Last Login: " + stateManager.getCurrentUser().getUpdatedAt().format(formatter));
+                acc_no.setText("Account No: " + stateManager.getCurrentUser().getUserId());
             }
 
-            header_vbox.getChildren().set(0,headerCard);
+            header_vbox.getChildren().set(0, headerCard);
 
 
         } catch (IOException e) {
@@ -103,38 +117,60 @@ public class DashboardHomeController {
         }
     }
 
+    private void showWalletCreationCard() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/cards/wallet-creation-card.fxml"));
+            AnchorPane walletCreationCard = loader.load();
+            Scene walletCreationScene = new Scene(walletCreationCard, 400,225);
+            Stage walletCreationStage = new Stage();
+
+            //pick the combo box inside the wallet creation card
+            ComboBox<String> cryptoType = (ComboBox<String>) walletCreationCard.lookup("#cryptoType");
+            cryptoType.getItems().addAll(CurrencyDataStore.getLatestCurrencyPriceList().keySet());
+            cryptoType.getSelectionModel().selectFirst();
+
+            walletCreationStage.setTitle("Create Wallet");
+            walletCreationStage.initModality(Modality.APPLICATION_MODAL);
+            walletCreationStage.setScene(walletCreationScene);
+            walletCreationStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    private void showCustomAlert(String title, String message) {
+//        // Create a new Stage for the custom alert
+//        Stage alertStage = new Stage();
+//        alertStage.initModality(Modality.APPLICATION_MODAL);
+//        alertStage.setTitle(title);
+//
+//        // Create custom labels and Input fields
+//        //wallet creation request
+//
+//
+//        //
+//        Button closeButton = new Button("Close");
+//        closeButton.setOnAction(e -> alertStage.close());
+//
+//
+//        VBox layout = new VBox(10, titleLabel, messageLabel, closeButton);
+//        layout.setStyle("-fx-padding: 20;");
+//        Scene alertScene = new Scene(layout, 300, 150);
+//
+//        alertStage.setScene(alertScene);
+//        alertStage.showAndWait();
+//    }
+
 
     private void loadCoinList() {
+        StateManager stateManager = StateManager.getInstance();
         coin_vbox.getChildren().clear();
-        addCryptoCard(coin_vbox, "Bitcoin (BTC)", "BTC 1.3043243");
-        addCryptoCard(coin_vbox, "Ethereum (ETH)", "ETH 0.3043243");
-        addCryptoCard(coin_vbox, "Ripple (XRP)", "XRP 0.3043243");
-        addCryptoCard(coin_vbox, "Litecoin (LTC)", "LTC 0.3043243");
-        addCryptoCard(coin_vbox, "Bitcoin Cash (BCH)", "BCH 0.3043243");
-        addCryptoCard(coin_vbox, "Cardano (ADA)", "ADA 0.3043243");
-        addCryptoCard(coin_vbox, "Polkadot (DOT)", "DOT 0.3043243");
-//        addCryptoCard(coin_vbox, "Binance Coin (BNB)", "BNB 0.3043243");
-//        addCryptoCard(coin_vbox, "Chainlink (LINK)", "LINK 0.3043243");
-//        addCryptoCard(coin_vbox, "Stellar (XLM)", "XLM 0.3043243");
-//        addCryptoCard(coin_vbox, "Tether (USDT)", "USDT 0.3043243");
-//        addCryptoCard(coin_vbox, "Bitcoin SV (BSV)", "BSV 0.3043243");
-//        addCryptoCard(coin_vbox, "Monero (XMR)", "XMR 0.3043243");
-//        addCryptoCard(coin_vbox, "EOS (EOS)", "EOS 0.3043243");
-//        addCryptoCard(coin_vbox, "TRON (TRX)", "TRX 0.3043243");
-//        addCryptoCard(coin_vbox, "Tezos (XTZ)", "XTZ 0.3043243");
-//        addCryptoCard(coin_vbox, "USD Coin (USDC)", "USDC 0.3043243");
-//        addCryptoCard(coin_vbox, "VeChain (VET)", "VET 0.3043243");
-//        addCryptoCard(coin_vbox, "Ethereum Classic (ETC)", "ETC 0.3043243");
-//        addCryptoCard(coin_vbox, "Cosmos (ATOM)", "ATOM 0.3043243");
-//        addCryptoCard(coin_vbox, "NEO (NEO)", "NEO 0.3043243");
-//        addCryptoCard(coin_vbox, "Dai (DAI)", "DAI 0.3043243");
-//        addCryptoCard(coin_vbox, "Huobi Token (HT)", "HT 0.3043243");
-//        addCryptoCard(coin_vbox, "Zcash (ZEC)", "ZEC 0.3043243");
-//        addCryptoCard(coin_vbox, "Maker (MKR)", "MKR 0.3043243");
-//        addCryptoCard(coin_vbox, "Compound (COMP)", "COMP 0.3043243");
-//        addCryptoCard(coin_vbox, "Dash (DASH)", "DASH 0.3043243");
-//        addCryptoCard(coin_vbox, "OKB (OKB)", "OKB 0.3043243");
-//        addCryptoCard(coin_vbox, "Aave (AAVE)", "AAVE 0.3043243");
+        stateManager.getCurrentUser().getWallets().forEach(
+                wallet -> {
+                    addCryptoCard(coin_vbox, wallet.getCryptoType(), wallet.getBalance() + " " + wallet.getCryptoType());
+                }
+        );
+
     }
 
 

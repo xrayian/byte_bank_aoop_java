@@ -16,7 +16,8 @@ import java.util.Map;
 public class CurrencyDataStore {
     static HashMap<String, CurrencyUSDValue> latestCurrencyPriceList = new HashMap<>();
     static HashMap<String, CurrencyUSDValue> previousCurrencyPriceList = new HashMap<>();
-    static HashMap<Date, CryptoDataFetcher.OHLCData> ohlcDataHashMap = new HashMap<>();
+//    static HashMap<Date, CryptoDataFetcher.OHLCData> ohlcDataHashMap = new HashMap<>();
+    static HashMap<String, HashMap<Date, CryptoDataFetcher.OHLCData>> symbolOHLCHistory = new HashMap<>();
 
     synchronized public static HashMap<String, CurrencyUSDValue> getLatestCurrencyPriceList() {
         return latestCurrencyPriceList;
@@ -66,24 +67,29 @@ public class CurrencyDataStore {
         return changePercentage;
     }
 
-
     public static HashMap<String, CurrencyUSDValue> getPreviousCurrencyPriceList() {
         return previousCurrencyPriceList;
     }
 
-    synchronized public static HashMap<Date, CryptoDataFetcher.OHLCData> getOHLCMap() {
-        return ohlcDataHashMap;
+    synchronized public static HashMap<Date, CryptoDataFetcher.OHLCData> getOHLCMap(String cryptoSymbol) {
+        return symbolOHLCHistory.get(cryptoSymbol);
     }
 
-    synchronized public static void setOHLCMap(HashMap<Date, CryptoDataFetcher.OHLCData> ohlcDataHashMap) {
-        CurrencyDataStore.ohlcDataHashMap = ohlcDataHashMap;
+    synchronized public static void setOHLCMap(String cryptoSymbol, HashMap<Date, CryptoDataFetcher.OHLCData> cryptoOHLCDataHashMap) {
+        symbolOHLCHistory.put(cryptoSymbol, cryptoOHLCDataHashMap);
     }
+
+//    synchronized private static void setOHLCMap(HashMap<Date, CryptoDataFetcher.OHLCData> ohlcDataHashMap) {
+//        CurrencyDataStore.ohlcDataHashMap = ohlcDataHashMap;
+//    }
 
     public static void setChartData(List<ChartData> chartData) {
-        HashMap<Date, CryptoDataFetcher.OHLCData> ohlcData = new HashMap<>();
-        for (ChartData data : chartData) {
-            ohlcData.put(data.getDate(), new CryptoDataFetcher.OHLCData(String.valueOf(data.time), data.getOpen(), data.getHigh(), data.getLow(), data.getClose()));
-        }
-        setOHLCMap(ohlcData);
+        //todo check later
+//        HashMap<Date, CryptoDataFetcher.OHLCData> ohlcData = new HashMap<>();
+//        for (ChartData data : chartData) {
+//            ohlcData.put(data.getDate(), new CryptoDataFetcher.OHLCData(String.valueOf(data.time), data.getOpen(), data.getHigh(), data.getLow(), data.getClose()));
+//        }
+//
+//        setOHLCMap(ohlcData);
     }
 }
