@@ -10,11 +10,12 @@ import java.util.concurrent.ExecutionException;
 public class MainApplication extends Application {
     public static SceneManager sceneManager;
     public static HttpClientHelper httpClientHelper;
+    public static StateManager stateManager;
 
     @Override
     public void start(Stage stage) throws Exception {
         httpClientHelper = new HttpClientHelper();
-        StateManager stateManager = StateManager.getInstance();
+        stateManager = StateManager.getInstance();
         loadMarketWS();
         sceneManager = new SceneManager(stage);
         sceneManager.init();

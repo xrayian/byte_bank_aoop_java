@@ -1,10 +1,13 @@
 package com.kernelcrash.byte_bank.utils;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.kernelcrash.byte_bank.models.User;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
 public class ConfigHelper {
     public static final String BACKEND_API_URL = "http://localhost:8080/api/v1/";
@@ -14,8 +17,10 @@ public class ConfigHelper {
 
     public static User loadLoggedInUserObject() {
         User user = null;
+
         ObjectInputStream ois = null;
         FileInputStream fis = null;
+
         try {
             fis = new FileInputStream("user.ser");
             ois = new ObjectInputStream(fis);
@@ -27,24 +32,33 @@ public class ConfigHelper {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
         if (user != null) {
             System.out.println("User is logged in: " + user.getUsername());
-            try {
-                return refreshUserObject(user.getEmail());
-            } catch (Exception e) {
-                System.err.println("Failed to get latest user object. Using cached object");
-            }
+//            try {
+            return refreshUserObject(user.getEmail());
+//            } catch (Exception e) {
+            //System.err.println("Failed to get latest user object. Using cached object");
+//            }
         }
+
         return user;
     }
 
     private static User refreshUserObject(String email) {
         HttpClientHelper httpClientHelper = new HttpClientHelper();
-        String apiUrl = ConfigHelper.BACKEND_API_URL + "auth/refresh-user?email=" + email;
+        String urlParamEmail = null;
         try {
-            String response = httpClientHelper.sendPost(apiUrl, null, null);
+            urlParamEmail = URLEncoder.encode(email, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            System.err.println("Failed to encode email");
+            return null;
+        }
+        String apiUrl = ConfigHelper.BACKEND_API_URL + "auth/refresh-user?email=" + urlParamEmail;
+        try {
+            String response = httpClientHelper.sendPost(apiUrl, "", null);
             if (response != null) {
-                Gson gson = new Gson();
+                Gson gson = GsonWithLocalDateTimeImpl();
                 User user = gson.fromJson(response, User.class);
                 System.out.println("User refreshed: " + user.getUsername());
                 return user;
@@ -53,6 +67,15 @@ public class ConfigHelper {
             throw new RuntimeException("Failed to refresh user object");
         }
         return null;
+    }
+
+    public static Gson GsonWithLocalDateTimeImpl() {
+        return new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>)
+                        (json, type, context) -> LocalDateTime.parse(json.getAsString()))
+                .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>)
+                        (src, type, context) -> new JsonPrimitive(src.toString()))
+                .create();
     }
 
     public static boolean storeLoggedInUserObject() {

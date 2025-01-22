@@ -61,13 +61,7 @@ public class LoginController implements SceneController {
         }
 
 
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>)
-                        (json, type, context) -> LocalDateTime.parse(json.getAsString()))
-                .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>)
-                        (src, type, context) -> new JsonPrimitive(src.toString()))
-                .create();
-
+        Gson gson = ConfigHelper.GsonWithLocalDateTimeImpl();
         User user = gson.fromJson(response, User.class);
         if (user == null) {
             error_msg.setText("Invalid email or password");

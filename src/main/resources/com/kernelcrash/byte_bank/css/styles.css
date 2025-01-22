@@ -94,6 +94,12 @@ button:hover {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 5, 0, 0, 3);
 }
 
+.chart-plot-background {
+    -fx-background-color: #ffffff; /* White background for consistency */
+    /*-fx-border-color: #dce1e8;*/
+    -fx-padding: 8px;
+}
+
 .label.header-title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;

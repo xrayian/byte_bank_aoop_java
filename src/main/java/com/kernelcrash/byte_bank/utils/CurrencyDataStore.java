@@ -1,10 +1,12 @@
 package com.kernelcrash.byte_bank.utils;
 
 import com.google.gson.JsonElement;
+import com.kernelcrash.byte_bank.MainApplication;
 import com.kernelcrash.byte_bank.models.ChartData;
 import com.kernelcrash.byte_bank.models.CurrencyUSDValue;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.kernelcrash.byte_bank.models.Wallet;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -91,5 +93,38 @@ public class CurrencyDataStore {
 //        }
 //
 //        setOHLCMap(ohlcData);
+    }
+
+    public static String getTotalPortfolioValue() {
+        BigDecimal totalPortfolioValue = BigDecimal.ZERO;
+        if (latestCurrencyPriceList.isEmpty()) {
+            return "Loading...";
+        }
+        for (CurrencyUSDValue currencyUSDValue : latestCurrencyPriceList.values()) {
+            totalPortfolioValue = totalPortfolioValue.add(currencyUSDValue.getUnitCurrencyValueInUSD());
+        }
+        return totalPortfolioValue.toString();
+    }
+
+    public static String getUserPortfolioValue() {
+        BigDecimal totalPortfolioValue = BigDecimal.ZERO;
+        if (latestCurrencyPriceList.isEmpty()) {
+            return "Loading...";
+        }
+        for (CurrencyUSDValue currencyUSDValue : latestCurrencyPriceList.values()) {
+            for (Wallet wallet : MainApplication.stateManager.getCurrentUser().getWallets()) {
+                if (currencyUSDValue.getCurrency().equals(wallet.getCryptoType())) {
+                    totalPortfolioValue = totalPortfolioValue.add(currencyUSDValue.getUnitCurrencyValueInUSD().multiply(BigDecimal.valueOf(wallet.getBalance())));
+                }
+            }
+        }
+        //return 3 decimal places
+        return totalPortfolioValue.setScale(3, RoundingMode.HALF_UP).toString();
+    }
+
+    public static void clearData() {
+        latestCurrencyPriceList.clear();
+        previousCurrencyPriceList.clear();
+        symbolOHLCHistory.clear();
     }
 }

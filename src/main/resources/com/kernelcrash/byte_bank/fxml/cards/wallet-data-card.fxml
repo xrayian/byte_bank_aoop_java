@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="183.0" minHeight="180.0" minWidth="457.0" prefHeight="180.0" prefWidth="457.0" style="-fx-background-color: white; -fx-padding: 10px; -fx-border-radius: 10px; -fx-background-radius: 10px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+        <HBox layoutX="21.6" layoutY="20.8" prefHeight="180.0" prefWidth="436.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox prefHeight="159.0" prefWidth="247.0">
+                    <children>
+                        <Label minWidth="180.0" prefHeight="18.0" prefWidth="180.0" text="Currency" textFill="#a3aed0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <font>
+                        <Font name="Poppins Regular" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label id="curName" alignment="TOP_LEFT" minWidth="180.0" prefHeight="48.0" prefWidth="250.0" text="BTCUSDT" textFill="#2b3674" VBox.vgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <font>
+                        <Font name="Agency FB Bold" size="25.0" />
+                     </font>
+                  </Label>
+                        <Label id="cur_val" alignment="CENTER_RIGHT" minWidth="180.0" prefHeight="37.0" prefWidth="235.0" text="\$23,738" textFill="#2b3674">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <font>
+                        <Font name="Poppins Regular" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label id="cur_own" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="91.0" minWidth="180.0" prefHeight="37.0" prefWidth="235.0" style="-fx-font-color: #05cd99;" text="\$237" textFill="#05cd99">
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </padding>
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+                    </children>
+                </VBox>
+                <LineChart id="cur_chart" fx:id="btcChart111" alternativeRowFillVisible="false" axisSortingPolicy="NONE" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" prefHeight="160.0" prefWidth="200.0" style="-fx-min-height: 170px; -fx-background-color: white;" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                    <xAxis>
+                        <CategoryAxis fx:id="btcXAxis111" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="btcYAxis111" />
+                    </yAxis>
+                </LineChart>
+            </children>
+        </HBox>
+   </children>
+</AnchorPane>

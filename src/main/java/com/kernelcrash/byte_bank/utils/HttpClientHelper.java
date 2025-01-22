@@ -22,7 +22,7 @@ public class HttpClientHelper {
     /**
      * Sends a GET request.
      *
-     * @param url The URL to send the GET request to.
+     * @param url     The URL to send the GET request to.
      * @param headers Optional headers for the request.
      * @return The response body as a String.
      * @throws Exception If an error occurs during the request.
@@ -47,9 +47,9 @@ public class HttpClientHelper {
     /**
      * Sends a POST request with a JSON payload.
      *
-     * @param url The URL to send the POST request to.
+     * @param url      The URL to send the POST request to.
      * @param jsonBody The JSON payload as a String.
-     * @param headers Optional headers for the request.
+     * @param headers  Optional headers for the request.
      * @return The response body as a String.
      */
     public String sendPost(String url, String jsonBody, Map<String, String> headers) throws URISyntaxException {
@@ -69,7 +69,7 @@ public class HttpClientHelper {
         HttpRequest request = builder.build();
         HttpResponse<String> response = null;
         try {
-            if(configHelper.debugNetwork) {
+            if (configHelper.debugNetwork) {
                 System.out.println("Sending POST request to: " + url);
                 System.out.println("Request body: " + jsonBody);
             }
@@ -96,9 +96,9 @@ public class HttpClientHelper {
     /**
      * Sends a PUT request with a JSON payload.
      *
-     * @param url The URL to send the PUT request to.
+     * @param url      The URL to send the PUT request to.
      * @param jsonBody The JSON payload as a String.
-     * @param headers Optional headers for the request.
+     * @param headers  Optional headers for the request.
      * @return The response body as a String.
      * @throws Exception If an error occurs during the request.
      */
@@ -123,7 +123,7 @@ public class HttpClientHelper {
     /**
      * Sends a DELETE request.
      *
-     * @param url The URL to send the DELETE request to.
+     * @param url     The URL to send the DELETE request to.
      * @param headers Optional headers for the request.
      * @return The response body as a String.
      * @throws Exception If an error occurs during the request.
@@ -157,8 +157,9 @@ public class HttpClientHelper {
         walletName = URLEncoder.encode(walletName);
         String apiUrl = ConfigHelper.BACKEND_API_URL + "transactions/open-wallet?uuid=" + StateManager.getInstance().getCurrentUser().getUserId() + "&walletName=" + walletName + "&symbol=" + symbol;
         String jsonBody = "";
+        Map<String, String> headers = Map.of("Accept", "application/json");
         try {
-            String res = sendPost(apiUrl, jsonBody, null);
+            String res = sendPost(apiUrl, jsonBody, headers);
             if (res != null) {
                 System.out.println("Wallet created successfully");
             }

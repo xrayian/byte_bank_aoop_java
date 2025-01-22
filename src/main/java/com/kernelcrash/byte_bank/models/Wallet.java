@@ -40,14 +40,14 @@ public class Wallet implements Serializable {
     }
 
     public double getBalance() {
-        //calculate the balance from the transactions
-        getTransactions().forEach(transaction -> {
-            if (transaction.getType().contains("DEPOSIT") || transaction.getType().contains("TRANSFER") || transaction.getType().contains("Bonus") || transaction.getType().contains("Interest") || transaction.getType().contains("Cashback")) {
-                balance += transaction.getAmount();
-            } else if (transaction.getType().equals("WITHDRAWAL")) {
-                balance -= transaction.getAmount();
-            }
-        });
+//        //calculate the balance from the transactions
+//        getTransactions().forEach(transaction -> {
+//            if (transaction.getType().contains("DEPOSIT") || transaction.getType().contains("TRANSFER") || transaction.getType().contains("Bonus") || transaction.getType().contains("Interest") || transaction.getType().contains("Cashback")) {
+//                balance += transaction.getAmount();
+//            } else if (transaction.getType().equals("WITHDRAWAL")) {
+//                balance -= transaction.getAmount();
+//            }
+//        });
         return balance;
     }
 

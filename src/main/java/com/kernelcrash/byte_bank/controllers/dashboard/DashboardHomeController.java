@@ -5,6 +5,10 @@ import com.kernelcrash.byte_bank.models.Wallet;
 import com.kernelcrash.byte_bank.utils.CurrencyDataStore;
 import com.kernelcrash.byte_bank.utils.HttpClientHelper;
 import com.kernelcrash.byte_bank.utils.StateManager;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,9 +21,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DashboardHomeController {
 
@@ -37,15 +44,13 @@ public class DashboardHomeController {
     @FXML
     Button addWalletBtn;
 
+    int totalAssets = 0;
+
 
     @FXML
     private void initialize() {
-        populateLoggedInUserList();
         loadUserWallets();
-        addPortfolioCardsToScene();
-        addWalletBtn.setOnAction(e -> {
-            showWalletCreationModal();
-        });
+        setupUI();
         System.out.println("DashboardHomeController initialized");
     }
 
@@ -76,16 +81,49 @@ public class DashboardHomeController {
         }
     }
 
+    private void setupUI() {
+        populateLoggedInUserList();
+        addPortfolioCardsToScene();
+        addWalletBtn.setOnAction(e -> {
+            showWalletCreationModal();
+        });
+
+        homeTickTimelineHandler.setCycleCount(Animation.INDEFINITE);
+        homeTickTimelineHandler.play();
+    }
+
+    Timeline homeTickTimelineHandler = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+        Platform.runLater(() -> {
+            addPortfolioCardsToScene();
+            loadUserWallets();
+        });
+    }));
+
     private void addPortfolioCardsToScene() {
         portfolio_vbox.getChildren().clear();
-        stateManager.getCurrentUser().getWallets().forEach(
-                wallet -> {
-                    addPortfolioCard(portfolio_vbox, wallet.getCryptoType(), wallet.getBalance() + " " + wallet.getCryptoType());
-                }
-        );
-//        addPortfolioCard(portfolio_vbox, "Total Assets Value", );
-        addPortfolioCard(portfolio_vbox, "Transactions (Last 60 Days)", "USD 12,230.00");
-        addPortfolioCard(portfolio_vbox, "Portfolio Profits", "USD 21,235.93");
+        totalAssets = 0;
+        AtomicInteger totalTransactions = new AtomicInteger();
+        BigDecimal totalProfits = BigDecimal.ZERO;
+
+        if (CurrencyDataStore.getLatestCurrencyPriceList().isEmpty()) {
+            addPortfolioCard(portfolio_vbox, "Total Portfolio Value (USD)", "Loading...");
+            addPortfolioCard(portfolio_vbox, "Transactions (Last 60 Days)", "Loading...");
+            addPortfolioCard(portfolio_vbox, "Portfolio Profits", "Loading...");
+            return;
+        }
+        for (Wallet wallet : stateManager.getCurrentUser().getWallets()) {
+            totalAssets += CurrencyDataStore.getLatestCurrencyPriceList().get(wallet.getCryptoType()).getUnitCurrencyValueInUSD().multiply(BigDecimal.valueOf(wallet.getBalance())).intValue();
+        }
+
+        stateManager.getCurrentUser().getWallets().forEach(wallet -> {
+            totalTransactions.addAndGet(wallet.getTransactions().size());
+            totalProfits.add(BigDecimal.valueOf(wallet.getBalance()));
+        });
+
+
+        addPortfolioCard(portfolio_vbox, "Total Portfolio Value (USD)", totalAssets + " USD");
+        addPortfolioCard(portfolio_vbox, "Transactions (Last 60 Days)", totalTransactions + " transactions");
+        addPortfolioCard(portfolio_vbox, "Portfolio Profits", totalProfits + " USD");
     }
 
     private void addPortfolioCard(VBox container, String name, String value) {
@@ -130,11 +168,15 @@ public class DashboardHomeController {
 
             //pick the combo box inside the wallet creation card
             ComboBox<String> cryptoType = (ComboBox<String>) walletCreationCard.lookup("#cryptoType");
-            cryptoType.getItems().add("Loading...");
-            cryptoType.getItems().clear();
-            cryptoType.getItems().addAll(CurrencyDataStore.getLatestCurrencyPriceList().keySet());
-            cryptoType.getItems().sort(String::compareTo);
-            cryptoType.getSelectionModel().selectFirst();
+
+            if (CurrencyDataStore.getLatestCurrencyPriceList().isEmpty()) {
+                cryptoType.getItems().add("Crypto data not available");
+            } else {
+                cryptoType.getItems().clear();
+                cryptoType.getItems().addAll(CurrencyDataStore.getLatestCurrencyPriceList().keySet());
+                cryptoType.getItems().sort(String::compareTo);
+                cryptoType.getSelectionModel().selectFirst();
+            }
 
             TextField walletName = (TextField) walletCreationCard.lookup("#walletNameField");
 
@@ -165,13 +207,10 @@ public class DashboardHomeController {
     }
 
     private void loadUserWallets() {
-        StateManager stateManager = StateManager.getInstance();
         walletContainerVBOX.getChildren().clear();
-        stateManager.getCurrentUser().getWallets().forEach(
-                wallet -> {
-                    addWalletCards(walletContainerVBOX, wallet);
-                }
-        );
+        stateManager.getCurrentUser().getWallets().forEach(wallet -> {
+            addWalletCards(walletContainerVBOX, wallet);
+        });
 
     }
 
