@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -64,8 +65,14 @@
                         </HBox>
                     </children>
                 </HBox>
-                <VBox styleClass="base-card" VBox.vgrow="ALWAYS">
-                    <fx:include source="../cards/transfer-asset-convert-card.fxml" />
+                <VBox alignment="CENTER" style="-fx-background-color: #ffffff; -fx-background-radius: 12px; -fx-alignment: center; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 2, 2);" VBox.vgrow="ALWAYS">
+               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <children>
+                     <Separator layoutX="709.0" layoutY="176.0" prefWidth="150.0" visible="false" HBox.hgrow="ALWAYS" />
+                          <fx:include source="../cards/transfer-asset-convert-card.fxml" />
+                     <Separator prefWidth="150.0" visible="false" HBox.hgrow="ALWAYS" />
+                  </children>
+               </HBox>
 
                 </VBox>
             </children>

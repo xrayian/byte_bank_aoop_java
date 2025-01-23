@@ -17,11 +17,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -44,6 +47,9 @@ public class DashboardHomeController {
     @FXML
     Button addWalletBtn;
 
+    @FXML
+    Button refreshBtn;
+
     int totalAssets = 0;
 
 
@@ -54,7 +60,7 @@ public class DashboardHomeController {
         System.out.println("DashboardHomeController initialized");
     }
 
-    private void populateLoggedInUserList() {
+    private void populateHeroCard() {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/cards/dashboard-home-header.fxml"));
             HBox headerCard = loader.load();
@@ -82,10 +88,15 @@ public class DashboardHomeController {
     }
 
     private void setupUI() {
-        populateLoggedInUserList();
+        populateHeroCard();
         addPortfolioCardsToScene();
         addWalletBtn.setOnAction(e -> {
             showWalletCreationModal();
+        });
+
+        refreshBtn.setOnAction(e -> {
+            loadUserWallets();
+            populateHeroCard();
         });
 
         homeTickTimelineHandler.setCycleCount(Animation.INDEFINITE);
@@ -134,9 +145,25 @@ public class DashboardHomeController {
             // Set the portfolio name and value dynamically
             Label nameLabel = (Label) portfolioCard.lookup(".portfolio-title");
             Label valueLabel = (Label) portfolioCard.lookup(".portfolio-value");
+            FontIcon icon = (FontIcon) portfolioCard.lookup(".portfolio-icon");
+            VBox iconContainer = (VBox) portfolioCard.lookup(".icon-container");
 
             if (nameLabel != null) nameLabel.setText(name);
             if (valueLabel != null) valueLabel.setText(value);
+            if (icon != null) {
+                if (name.equals("Total Portfolio Value (USD)")) {
+                    icon.setIconLiteral("fas-dollar-sign");
+                } else if (name.equals("Transactions (Last 60 Days)")) {
+                    icon.setIconLiteral("fas-exchange-alt");
+                    icon.setIconColor(Paint.valueOf("#FFB849"));
+                    iconContainer.setStyle("-fx-background-color: #ffebcd!important;-fx-background-radius: 1em;");
+
+                } else if (name.equals("Portfolio Profits")) {
+                    icon.setIconLiteral("fas-chart-line");
+                    icon.setIconColor(Paint.valueOf("#219653"));
+                    iconContainer.setStyle("-fx-background-color: #d3eadd!important;-fx-background-radius: 1em;");
+                }
+            }
 
             container.getChildren().add(portfolioCard);
         } catch (IOException e) {
@@ -148,11 +175,28 @@ public class DashboardHomeController {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/cards/crypto-card.fxml"));
             HBox cryptoCard = loader.load();
+            FontIcon icon = (FontIcon) cryptoCard.lookup(".crypto-icon");
             Label nameLabel = (Label) cryptoCard.lookup(".crypto-name");
             Label valueLabel = (Label) cryptoCard.lookup(".crypto-value");
             if (nameLabel != null) nameLabel.setText(wallet.getWalletName() + " (" + wallet.getCryptoType() + ")");
             if (valueLabel != null)
                 valueLabel.setText(String.format("%.2f", wallet.getBalance()) + " " + wallet.getCryptoType());
+            if (icon != null) {
+                icon.setIconLiteral("fas-wallet");
+                if (wallet.getCryptoType().equals("BTC")) icon.setIconLiteral("fab-bitcoin");
+                else if (wallet.getCryptoType().equals("ETH")) icon.setIconLiteral("fab-ethereum");
+                else if (wallet.getCryptoType().equals("LTC")) icon.setIconLiteral("fab-litecoin");
+                else if (wallet.getCryptoType().equals("XRP")) icon.setIconLiteral("fab-xrp");
+                else if (wallet.getCryptoType().equals("BCH")) icon.setIconLiteral("fab-bitcoin-cash");
+                else if (wallet.getCryptoType().equals("DOGE")) icon.setIconLiteral("fab-dogecoin");
+                else if (wallet.getCryptoType().equals("USD")) icon.setIconLiteral("fas-dollar-sign");
+            }
+            icon.setIconSize(30);
+            if (wallet.isPrimary()) {
+                cryptoCard.setStyle("-fx-background-color: #f2f8ff!important");
+            }
+            cryptoCard.setMinHeight(70);
+            cryptoCard.setMinWidth(335);
             container.getChildren().add(cryptoCard);
         } catch (IOException e) {
             e.printStackTrace();

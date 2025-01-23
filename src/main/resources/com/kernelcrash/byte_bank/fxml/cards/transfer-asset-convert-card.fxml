@@ -6,83 +6,130 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="800.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.TransferConversionController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="795.0" spacing="20.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <VBox alignment="CENTER" maxWidth="1200.0" prefHeight="400.0" prefWidth="795.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
-            <HBox prefHeight="27.0" prefWidth="790.0">
+            <HBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Label prefHeight="42.0" prefWidth="239.0" styleClass="card-header" text="Operation" HBox.hgrow="ALWAYS" />
-                  <Separator prefWidth="200.0" visible="false" HBox.hgrow="ALWAYS" />
-                  <HBox alignment="CENTER" maxWidth="170.0" minWidth="170.0" prefHeight="42.0" prefWidth="170.0" spacing="5.0" styleClass="combo-box-input" HBox.hgrow="NEVER">
+                  <VBox fillWidth="false" prefHeight="393.0" prefWidth="375.0" spacing="20.0" HBox.hgrow="ALWAYS">
                      <children>
-                          <ToggleButton selected="true" text="Sell">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="op_group" />
-                           </toggleGroup>
-                        </ToggleButton>
-                          <ToggleButton text="Buy" toggleGroup="$op_group" />
-                          <ToggleButton text="Exchange" toggleGroup="$op_group" />
+                        <Label prefHeight="69.0" prefWidth="302.0" text="Conversion">
+                           <font>
+                              <Font name="Inter Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="h3-title" text="You Pay" />
+                              <HBox spacing="2.0" styleClass="combo-box-input">
+                                 <children>
+                                    <ChoiceBox fx:id="payWalletSelBox" prefWidth="150.0" />
+                                    <TextField fx:id="payAmountField" alignment="CENTER_RIGHT" prefWidth="234.0" style="-fx-border-color: transparent;" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label styleClass="h3-title" text="You Receive (Estimate)" />
+                              <HBox spacing="2.0" styleClass="combo-box-input">
+                                 <children>
+                                    <ChoiceBox fx:id="receiveWalletSelBox" prefWidth="150.0" />
+                                    <TextField fx:id="receiveAmountValueField" alignment="CENTER_RIGHT" disable="true" prefWidth="234.0" style="-fx-border-color: transparent;">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Separator disable="true" focusTraversable="false" orientation="VERTICAL" prefHeight="51.0" prefWidth="26.0" visible="false" VBox.vgrow="ALWAYS" />
+                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="360.0" text="You need to open a wallet to convert currencies." textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Inter Regular" size="8.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="convertBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="400.0" text="Convert Now">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
                      </children>
                      <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
-                     <effect>
-                        <InnerShadow height="7.0" offsetX="-2.0" offsetY="-2.0" radius="3.0" width="7.0">
-                           <color>
-                              <Color opacity="0.14969603717327118" />
-                           </color>
-                        </InnerShadow>
-                     </effect>
-                  </HBox>
-               </children>
-            </HBox>
-            <VBox fillWidth="false" prefHeight="271.0" prefWidth="750.0" spacing="20.0">
-               <children>
-                  <VBox spacing="5.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label styleClass="h3-title" text="You Pay" />
-                        <HBox styleClass="combo-box-input">
-                           <children>
-                              <ChoiceBox fx:id="payCryptoBox" prefWidth="150.0" />
-                              <TextField alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="234.0" style="-fx-border-color: transparent;" />
-                           </children>
-                        </HBox>
-                     </children>
                   </VBox>
-                  <VBox spacing="5.0">
+                  <Separator layoutX="341.0" layoutY="194.0" prefWidth="20.0" visible="false" HBox.hgrow="ALWAYS" />
+                  <Separator orientation="VERTICAL" prefHeight="120.0" />
+                  <Separator prefWidth="20.0" visible="false" HBox.hgrow="ALWAYS" />
+                  <VBox fillWidth="false" layoutX="15.0" layoutY="15.0" prefHeight="393.0" prefWidth="375.0" spacing="20.0">
                      <children>
-                        <Label styleClass="h3-title" text="You Receive" />
-                        <HBox styleClass="combo-box-input">
+                        <Label prefHeight="69.0" prefWidth="302.0" text="Transfer">
+                           <font>
+                              <Font name="Inter Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <VBox spacing="5.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <ChoiceBox fx:id="receiveCryptoBox" prefWidth="150.0" />
-                              <TextField alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="234.0" style="-fx-border-color: transparent;" />
+                              <Label styleClass="h3-title" text="Account Number" />
+                              <HBox styleClass="combo-box-input">
+                                 <children>
+                                    <TextField fx:id="accountNameField" prefHeight="30.0" prefWidth="435.0" promptText="32-character-account-number" style="-fx-border-color: transparent;" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label styleClass="h3-title" text="Select Funds" />
+                              <HBox spacing="2.0" styleClass="combo-box-input">
+                                 <children>
+                                    <ChoiceBox fx:id="trxWalletSelBox" prefWidth="150.0" />
+                                    <TextField fx:id="trxAmountField" alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="234.0" style="-fx-border-color: transparent;" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Separator disable="true" focusTraversable="false" orientation="VERTICAL" prefHeight="51.0" prefWidth="26.0" visible="false" VBox.vgrow="ALWAYS" />
+                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="360.0" text="Receiver will receive funds in their primary account " textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Inter Regular" size="8.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="transferBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="400.0" text="Initiate Transfer">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </VBox>
-                  <Separator disable="true" focusTraversable="false" orientation="VERTICAL" prefHeight="250.0" prefWidth="26.0" visible="false" VBox.vgrow="ALWAYS" />
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="400.0" text="Proceed">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </Button>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
-            </VBox>
+            </HBox>
          </children>
          <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
    </children>

@@ -16,10 +16,11 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws Exception {
         httpClientHelper = new HttpClientHelper();
         stateManager = StateManager.getInstance();
-        loadMarketWS();
+        if(stateManager.isUserLoggedIn()) {
+            loadMarketWS();
+        }
         sceneManager = new SceneManager(stage);
         sceneManager.init();
-
     }
 
     private static void loadMarketWS() {

@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<HBox alignment="CENTER" prefHeight="120.0" prefWidth="400.0" styleClass="portfolio-card" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" prefHeight="120.0" prefWidth="400.0" spacing="8.0" styleClass="portfolio-card" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
+      <VBox alignment="CENTER" styleClass="icon-container" maxHeight="100.0" maxWidth="128.0" minHeight="50.0" minWidth="50.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: rgba(77, 33, 255, 0.2); -fx-background-radius: 1em;" HBox.hgrow="SOMETIMES">
+         <children>
+            <FontIcon iconColor="#9181db" iconLiteral="fas-dollar-sign" iconSize="30" styleClass="portfolio-icon" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <HBox.margin>
+            <Insets bottom="4.0" top="4.0" />
+         </HBox.margin>
+      </VBox>
+        <VBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="273.0" spacing="10.0" HBox.hgrow="ALWAYS">
             <children>
-                <Label text="Total Portfolio Value" styleClass="portfolio-title">
+                <Label prefHeight="38.0" prefWidth="263.0" styleClass="portfolio-title" stylesheets="@../../css/styles.css" text="Total Portfolio Value" VBox.vgrow="ALWAYS">
                     <font>
-                        <Font size="16.0" />
+                        <Font name="Inter Regular" size="16.0" />
                     </font>
                 </Label>
-                <Label text="25,678.23" styleClass="portfolio-value">
+                <Label alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="300.0" styleClass="portfolio-value" text="25,678.23" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                     <font>
-                        <Font size="32.0" />
+                        <Font name="Agency FB Bold" size="24.0" />
                     </font>
                 </Label>
             </children>
+         <HBox.margin>
+            <Insets top="5.0" />
+         </HBox.margin>
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
         </VBox>
     </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
 </HBox>

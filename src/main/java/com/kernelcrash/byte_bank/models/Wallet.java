@@ -1,6 +1,8 @@
 package com.kernelcrash.byte_bank.models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,18 +13,18 @@ public class Wallet implements Serializable {
     private double balance;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private boolean isPrimary;
+    private boolean primary;
     private List<Transaction> transactions;
     private User user;
 
-    public Wallet(Long walletId, String walletName, String cryptoType, double balance, LocalDateTime createdAt, LocalDateTime updatedAt, boolean isPrimary, List<Transaction> transactions, User user) {
+    public Wallet(Long walletId, String walletName, String cryptoType, double balance, LocalDateTime createdAt, LocalDateTime updatedAt, boolean primary, List<Transaction> transactions, User user) {
         this.walletId = walletId;
         this.walletName = walletName;
         this.cryptoType = cryptoType;
         this.balance = balance;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.isPrimary = isPrimary;
+        this.primary = primary;
         this.transactions = transactions;
         this.user = user;
     }
@@ -40,15 +42,11 @@ public class Wallet implements Serializable {
     }
 
     public double getBalance() {
-//        //calculate the balance from the transactions
-//        getTransactions().forEach(transaction -> {
-//            if (transaction.getType().contains("DEPOSIT") || transaction.getType().contains("TRANSFER") || transaction.getType().contains("Bonus") || transaction.getType().contains("Interest") || transaction.getType().contains("Cashback")) {
-//                balance += transaction.getAmount();
-//            } else if (transaction.getType().equals("WITHDRAWAL")) {
-//                balance -= transaction.getAmount();
-//            }
-//        });
         return balance;
+    }
+
+    public double getUIFriendlyBalance() {
+        return new BigDecimal(balance).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     public LocalDateTime getUpdatedAt() {
@@ -61,5 +59,13 @@ public class Wallet implements Serializable {
 
     public User getUser() {
         return user;
+    }
+
+    public void setPrimary(boolean primary) {
+        this.primary = primary;
+    }
+
+    public boolean isPrimary() {
+        return primary;
     }
 }

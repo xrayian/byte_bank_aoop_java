@@ -7,6 +7,87 @@
 
 }
 
+.icon-btn {
+    -fx-background-color: #f9f9f9; /* Light gray background for all buttons */
+    -fx-border-color: transparent;
+    -fx-text-fill: #2c3e50; /* Modern dark gray for text */
+    -fx-padding: 10px 15px; /* Spacing around the text */
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-font-size: 14px; /* Slightly larger text for readability */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle drop shadow */
+}
+
+.icon-btn:hover {
+    -fx-background-color: #eaf6ff; /* Subtle light blue background on hover */
+    -fx-border-color: transparent;
+    -fx-text-fill: #0056a4; /* Vibrant blue for text */
+    -fx-cursor: hand; /* Pointer cursor on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 0, 3); /* Slightly stronger shadow on hover */
+}
+
+.icon-btn:pressed {
+    -fx-background-color: #d9ecff; /* Slightly darker blue for click effect */
+    -fx-border-color: transparent;
+    -fx-text-fill: #0056a4; /* Vibrant blue */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 1); /* Reduced shadow for pressed state */
+}
+
+.primary-icon-btn {
+    -fx-background-color: #eaf6ff; /* Active state light blue background */
+    -fx-border-color: transparent;
+    -fx-text-fill: #0056a4; /* Vibrant blue for text */
+    -fx-padding: 10px 15px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-font-weight: bold; /* Highlight active item with bold text */
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle drop shadow for active button */
+}
+
+.primary-icon-btn:hover {
+    -fx-background-color: #d9ecff; /* Darker blue on hover */
+    -fx-border-color: transparent;
+    -fx-text-fill: #003f7e; /* Deep hover text color */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 0, 3); /* Slightly stronger shadow on hover */
+}
+
+.primary-icon-btn:pressed {
+    -fx-background-color: #c6e2ff; /* Darkest blue for pressed state */
+    -fx-border-color: transparent;
+    -fx-text-fill: #003f7e; /* Deep hover text color */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 1); /* Reduced shadow for pressed state */
+}
+
+/* Icon styling inside primary-icon-btn */
+.primary-icon-btn .ikonli-font-icon {
+    -fx-icon-color: #0056a4; /* Vibrant blue color for active icon */
+    -fx-font-size: 18px; /* Icon size */
+}
+
+.primary-icon-btn:hover .ikonli-font-icon {
+    -fx-icon-color: #003f7e; /* Deep hover icon color */
+}
+
+.primary-icon-btn:pressed .ikonli-font-icon {
+    -fx-icon-color: #003f7e; /* Deep pressed icon color */
+}
+
+/* Icon styling inside icon-btn */
+.icon-btn .ikonli-font-icon {
+    -fx-icon-color: #2c3e50; /* Dark gray color for default icons */
+    -fx-font-size: 18px; /* Icon size */
+}
+
+.icon-btn:hover .ikonli-font-icon {
+    -fx-icon-color: #0056a4; /* Vibrant blue for hover icons */
+}
+
+.icon-btn:pressed .ikonli-font-icon {
+    -fx-icon-color: #0056a4; /* Vibrant blue for pressed icons */
+}
+
+
 
 
 .scroll-pane .label {
@@ -68,20 +149,20 @@ button:hover {
     -fx-background-color: #ffffff;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
-    -fx-padding: 16px;
+    /*-fx-padding: 16px;*/
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 2, 2);
 }
 
 /* Card Titles */
 .crypto-name, .portfolio-title {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #0056a4; /* Vibrant blue */
+    /*-fx-font-size: 16px;*/
+    /*-fx-font-weight: bold;*/
+    /*-fx-text-fill: #0056a4; !* Vibrant blue *!*/
 }
 
 .crypto-value, .portfolio-value {
-    -fx-font-size: 14px;
-    -fx-text-fill: #616161; /* Neutral gray */
+    /*-fx-font-size: 14px;*/
+    /*-fx-text-fill: #616161; !* Neutral gray *!*/
 }
 
 /* Header */
@@ -100,6 +181,8 @@ button:hover {
     -fx-padding: 8px;
 }
 
+
+
 .label.header-title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
@@ -109,12 +192,12 @@ button:hover {
 /* Table Styling */
 .table-view {
     -fx-background-color: transparent;
-    -fx-border-color: #dce1e8;
+    /*-fx-border-color: #dce1e8;*/
 }
 
 .table-view .column-header {
-    -fx-background-color: #e9f5ff;
-    -fx-text-fill: #0056a4; /* Dark blue */
+    /*-fx-background-color: #e9f5ff;*/
+    /*-fx-text-fill: #0056a4; !* Dark blue *!*/
     -fx-padding: 10px;
 }
 

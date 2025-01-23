@@ -8,19 +8,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="744.0" prefWidth="692.0" style="-fx-background-color: #EEF3FA;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardHomeController">
+<AnchorPane prefHeight="664.0" prefWidth="882.0" style="-fx-background-color: #EEF3FA;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardHomeController">
     <children>
         <VBox fx:id="header_vbox" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <fx:include source="../cards/dashboard-home-header.fxml" />
                 <HBox VBox.vgrow="ALWAYS">
                     <children>
-                        <VBox alignment="TOP_CENTER" spacing="7.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="TOP_CENTER" minWidth="450.0" prefHeight="564.0" prefWidth="550.0" spacing="7.0" HBox.hgrow="ALWAYS">
                             <children>
-                        <HBox alignment="CENTER">
+                        <HBox alignment="CENTER" spacing="8.0">
                            <VBox.margin>
-                              <Insets left="5.0" />
+                              <Insets left="10.0" right="10.0" />
                            </VBox.margin>
                            <children>
                               <VBox prefHeight="36.0" prefWidth="216.0" HBox.hgrow="ALWAYS">
@@ -32,12 +33,20 @@
                                             </Label>
                                  </children>
                               </VBox>
-                              <Button fx:id="addWalletBtn" alignment="CENTER" mnemonicParsing="false" text="Add Wallet" textAlignment="CENTER" />
+                              <Button fx:id="refreshBtn" alignment="CENTER" mnemonicParsing="false" styleClass="icon-btn" textAlignment="CENTER">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fas-redo-alt" iconSize="18" />
+                                 </graphic></Button>
+                              <Button fx:id="addWalletBtn" alignment="CENTER" layoutX="384.0" layoutY="14.0" mnemonicParsing="false" styleClass="icon-btn, primary-icon-btn" textAlignment="CENTER">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fas-plus-circle" iconSize="18" />
+                                 </graphic>
+                              </Button>
                            </children>
                         </HBox>
-                                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minViewportWidth="240.0" pickOnBounds="false" prefHeight="511.0" prefViewportWidth="360.0" prefWidth="401.0" VBox.vgrow="ALWAYS">
+                                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minViewportWidth="400.0" pickOnBounds="false" prefHeight="511.0" prefViewportWidth="470.0" prefWidth="470.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                     <content>
-                                        <VBox fx:id="walletContainerVBOX" prefHeight="66.0" prefWidth="546.0" spacing="5.0" style="-fx-background-color: #EEF3FA;">
+                                        <VBox fx:id="walletContainerVBOX" prefHeight="66.0" prefWidth="546.0" spacing="5.0" style="-fx-background-color: #EEF3FA;" stylesheets="@../../css/styles.css">
                                             <children>
                                                 <fx:include source="../cards/crypto-card.fxml" />
                                                 <fx:include source="../cards/crypto-card.fxml" />
@@ -48,6 +57,9 @@
                                             </padding>
                                         </VBox>
                                     </content>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                                 </ScrollPane>
                             </children>
                             <padding>
@@ -67,7 +79,7 @@
                 </HBox>
             </children>
          <padding>
-            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
         </VBox>
     </children>
