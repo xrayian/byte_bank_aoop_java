@@ -40,14 +40,43 @@
                         <Font name="Poppins Regular" size="26.0" />
                      </font>
                   </Label>
-                  <Label id="cur_own" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="91.0" minWidth="180.0" prefHeight="37.0" prefWidth="235.0" style="-fx-font-color: #05cd99;" text="\$237" textFill="#05cd99">
-                     <padding>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </padding>
-                     <font>
-                        <Font name="Poppins Regular" size="16.0" />
-                     </font>
-                  </Label>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label id="cur_prof_per" alignment="CENTER" minWidth="48.0" prefHeight="31.0" prefWidth="75.0" style="-fx-color: #eb5757;" text="+23.7%" textFill="#219653" visible="false">
+                           <padding>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </padding>
+                           <font>
+                              <Font name="Poppins Regular" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label id="cur_prof_amt" alignment="CENTER" layoutX="10.0" layoutY="10.0" minWidth="46.0" prefHeight="31.0" prefWidth="54.0" style="-fx-background-color: #d3eadd; -fx-background-radius: 12px; -fx-font-weight: bold;" text="+$37" textFill="#05cd99" visible="false">
+                           <padding>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </padding>
+                           <font>
+                              <Font name="Poppins Regular" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label id="cur_own" alignment="CENTER_RIGHT" layoutX="58.0" layoutY="10.0" minWidth="48.0" prefHeight="30.0" prefWidth="138.0" style="-fx-font-color: #ffffff;" text="\$237" textFill="#1e1e1e">
+                           <padding>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </padding>
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
                     </children>
                 </VBox>
                 <LineChart id="cur_chart" fx:id="btcChart111" alternativeRowFillVisible="false" axisSortingPolicy="NONE" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" prefHeight="160.0" prefWidth="200.0" style="-fx-min-height: 170px; -fx-background-color: white;" verticalGridLinesVisible="false" verticalZeroLineVisible="false">

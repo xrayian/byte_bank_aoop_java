@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane prefHeight="400.0" prefWidth="800.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.TransferConversionController">
    <children>
@@ -26,7 +27,12 @@
                         </Label>
                         <VBox spacing="5.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label styleClass="h3-title" text="You Pay" />
+                              <TextFlow VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="h3-title" text="You Pay" />
+                                    <Label fx:id="conversionAvlBalance" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="280.0" textFill="#595959" />
+                                 </children>
+                              </TextFlow>
                               <HBox spacing="2.0" styleClass="combo-box-input">
                                  <children>
                                     <ChoiceBox fx:id="payWalletSelBox" prefWidth="150.0" />
@@ -94,7 +100,12 @@
                         </VBox>
                         <VBox spacing="5.0">
                            <children>
-                              <Label styleClass="h3-title" text="Select Funds" />
+                              <TextFlow>
+                                 <children>
+                                    <Label styleClass="h3-title" text="Select Funds" />
+                                    <Label fx:id="transferWalletBalance" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="250.0" textFill="#595959" />
+                                 </children>
+                              </TextFlow>
                               <HBox spacing="2.0" styleClass="combo-box-input">
                                  <children>
                                     <ChoiceBox fx:id="trxWalletSelBox" prefWidth="150.0" />

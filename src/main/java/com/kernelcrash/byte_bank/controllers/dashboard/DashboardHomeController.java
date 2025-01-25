@@ -2,6 +2,7 @@ package com.kernelcrash.byte_bank.controllers.dashboard;
 
 import com.kernelcrash.byte_bank.MainApplication;
 import com.kernelcrash.byte_bank.models.Wallet;
+import com.kernelcrash.byte_bank.utils.ConfigHelper;
 import com.kernelcrash.byte_bank.utils.CurrencyDataStore;
 import com.kernelcrash.byte_bank.utils.HttpClientHelper;
 import com.kernelcrash.byte_bank.utils.StateManager;
@@ -55,7 +56,7 @@ public class DashboardHomeController {
 
     @FXML
     private void initialize() {
-        loadUserWallets();
+        loadUserWallets(true);
         setupUI();
         System.out.println("DashboardHomeController initialized");
     }
@@ -95,7 +96,7 @@ public class DashboardHomeController {
         });
 
         refreshBtn.setOnAction(e -> {
-            loadUserWallets();
+            loadUserWallets(true);
             populateHeroCard();
         });
 
@@ -106,7 +107,7 @@ public class DashboardHomeController {
     Timeline homeTickTimelineHandler = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
         Platform.runLater(() -> {
             addPortfolioCardsToScene();
-            loadUserWallets();
+            loadUserWallets(false);
         });
     }));
 
@@ -230,7 +231,7 @@ public class DashboardHomeController {
                 createWalletBtn.setOnAction(e -> {
                     HttpClientHelper httpClientHelper = new HttpClientHelper();
                     httpClientHelper.createWallet(walletName.getText(), cryptoType.getSelectionModel().getSelectedItem());
-                    loadUserWallets();
+                    loadUserWallets(true);
                     walletCreationStage.close();
                 });
             }
@@ -250,7 +251,12 @@ public class DashboardHomeController {
         }
     }
 
-    private void loadUserWallets() {
+    private void loadUserWallets(boolean hardRefresh) {
+
+
+        if (hardRefresh)
+            stateManager.refreshUser();
+
         walletContainerVBOX.getChildren().clear();
         stateManager.getCurrentUser().getWallets().forEach(wallet -> {
             addWalletCards(walletContainerVBOX, wallet);

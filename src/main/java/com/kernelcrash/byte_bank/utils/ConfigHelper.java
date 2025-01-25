@@ -36,7 +36,7 @@ public class ConfigHelper {
         if (user != null) {
             System.out.println("User is logged in: " + user.getUsername());
 //            try {
-            return refreshUserObject(user.getEmail());
+            return refreshUserObjectOnline(user.getEmail());
 //            } catch (Exception e) {
             //System.err.println("Failed to get latest user object. Using cached object");
 //            }
@@ -45,7 +45,10 @@ public class ConfigHelper {
         return user;
     }
 
-    private static User refreshUserObject(String email) {
+    public static User refreshUserObjectOnline(String email) {
+        /// reached here print stack trace
+        //todo print why multiple calls to this method
+        ///
         HttpClientHelper httpClientHelper = new HttpClientHelper();
         String urlParamEmail = null;
         try {

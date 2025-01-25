@@ -1,5 +1,7 @@
 package com.kernelcrash.byte_bank.utils;
 
+import com.kernelcrash.byte_bank.MainApplication;
+import com.kernelcrash.byte_bank.models.Wallet;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
@@ -17,6 +19,47 @@ public class HttpClientHelper {
     // Constructor
     public HttpClientHelper() {
         this.httpClient = HttpClient.newHttpClient();
+    }
+
+    public boolean convertCurrency(Wallet fromWallet, Wallet toWallet, double fromAmount) {
+        // Encode the wallet names
+        String apiUrl = ConfigHelper.BACKEND_API_URL + "transactions/convert-currency-between-wallets?uuid=" + StateManager.getInstance().getCurrentUser().getUserId() + "&amount=" + fromAmount + "&fromWalletId=" + fromWallet.getWalletId() + "&toWalletId=" + toWallet.getWalletId();
+        String jsonBody = "";
+        Map<String, String> headers = Map.of("Accept", "application/json");
+        try {
+            String res = sendPost(apiUrl, jsonBody, headers);
+            if (res != null) {
+                System.out.println("Currency converted successfully");
+                //refresh the wallets
+
+                return true;
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+
+    public boolean transferCurrency(Wallet fromWallet, String toUUID, double fromAmount) {
+        // Encode the wallet names
+        //http://localhost:8080/api/v1/transactions/send-currency-between-users?senderUUID=52386b6a-f49f-4e56-a889-b3a6f8f8236f&receiverUUID=676526bb-27ee-4618-a1f7-08f59b4a3358&amount=5&currency=USD&senderWalletAddress=1
+        String apiUrl = ConfigHelper.BACKEND_API_URL + "transactions/send-currency-between-users?senderUUID=" + MainApplication.stateManager.getCurrentUser().getUserId() + "&receiverUUID=" + toUUID + "&amount=" + fromAmount + "&currency=" + fromWallet.getCryptoType() + "&senderWalletAddress=" + fromWallet.getWalletId();
+        String jsonBody = "";
+        Map<String, String> headers = Map.of("Accept", "application/json");
+        try {
+            String res = sendPost(apiUrl, jsonBody, headers);
+            if (res != null) {
+                System.out.println("Currency transferred successfully");
+                //refresh the wallets
+
+                return true;
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
 
     /**

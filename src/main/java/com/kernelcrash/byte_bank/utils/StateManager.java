@@ -24,6 +24,10 @@ public class StateManager {
         return currentUser != null;
     }
 
+    public void refreshUser() {
+        currentUser = ConfigHelper.refreshUserObjectOnline(currentUser.getEmail());
+    }
+
 
 //    public boolean isDarkMode() {
 //        return isDarkMode;
