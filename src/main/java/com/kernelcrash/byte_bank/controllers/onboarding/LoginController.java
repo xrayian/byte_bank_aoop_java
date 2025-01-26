@@ -51,7 +51,7 @@ public class LoginController implements SceneController {
         String response = "";
         //send http post request
         try {
-            response = MainApplication.httpClientHelper.sendPost(ConfigHelper.BACKEND_API_URL + "auth/login?email=" + email + "&password=" + password, "", Map.of("Content-Type", "application/json"));
+            response = MainApplication.httpClientHelper.sendPost(ConfigHelper.getBACKEND_API_URL() + "auth/login?email=" + email + "&password=" + password, "", Map.of("Content-Type", "application/json"));
         } catch (Exception e) {
             //e.printStackTrace();
             System.out.println("An error occurred: " + e.getMessage());

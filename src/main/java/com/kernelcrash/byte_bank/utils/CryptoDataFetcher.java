@@ -15,7 +15,7 @@ public class CryptoDataFetcher {
     /// and populates the CurrencyDataStore with the data
     /// data can be found in `CurrencyDataStore` class 'getOHLCMap' method
     public static void fetchHistoricalData(String fsymbol, String tosymbol, int aggregate, int limit) throws Exception {
-        String apiUrl = ConfigHelper.BACKEND_API_URL + "crypto-data/getKlines?fsymbol=" + fsymbol + "&tosymbol=" + tosymbol + "&aggregate=" + aggregate + "&limit=" + limit;
+        String apiUrl = ConfigHelper.getBACKEND_API_URL() + "crypto-data/getKlines?fsymbol=" + fsymbol + "&tosymbol=" + tosymbol + "&aggregate=" + aggregate + "&limit=" + limit;
 
         HttpClientHelper httpClientHelper = new HttpClientHelper();
         String response = httpClientHelper.sendGet(apiUrl, null);

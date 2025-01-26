@@ -9,21 +9,33 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
+//make static
+
 public class ConfigHelper {
 
     //read the server IP and port from a file
 
-    private static String ServerIP = "localhost";
-    private static String ServerPort = "8080";
+    private static String ServerIP;
+    private static String ServerPort;
 
-    public static final String BACKEND_API_URL = "http://" + ServerIP + ":" + ServerPort + "/api/v1/";
-    public static final String BACKEND_WS_URL = "ws://" + ServerIP + ":" + ServerPort + "/ws";
-    public static final String WS_CRYPTO_SOCKET_URL = "ws://" + ServerIP + ":" + ServerPort + "/crypto-socket";
     public boolean debugNetwork = true;
 
     public ConfigHelper() {
         init();
     }
+
+    public static String getBACKEND_API_URL() {
+        return "http://" + ServerIP + ":" + ServerPort + "/api/v1/";
+    }
+
+    public static String getBACKEND_WS_URL() {
+        return "ws://" + ServerIP + ":" + ServerPort + "/ws";
+    }
+
+    public static String getWS_CRYPTO_SOCKET_URL() {
+        return "ws://" + ServerIP + ":" + ServerPort + "/crypto-socket";
+    }
+
 
     public static User loadLoggedInUserObject() {
         User user = null;
@@ -55,15 +67,19 @@ public class ConfigHelper {
         return user;
     }
 
-    private static void init() {
+    public static void init() {
         //read the server IP and port from a file
         try {
             BufferedReader reader = new BufferedReader(new FileReader("server.config"));
             ServerIP = reader.readLine();
             ServerPort = reader.readLine();
+            System.out.println("Server IP: " + ServerIP);
+            System.out.println("Server Port: " + ServerPort);
             reader.close();
         } catch (IOException e) {
-            System.err.println("Failed to read server config file");
+            System.err.println("Failed to read server config file. Using default values");
+            ServerIP = "localhost";
+            ServerPort = "8080";
         }
     }
 
@@ -79,7 +95,7 @@ public class ConfigHelper {
             System.err.println("Failed to encode email");
             return null;
         }
-        String apiUrl = ConfigHelper.BACKEND_API_URL + "auth/refresh-user?email=" + urlParamEmail;
+        String apiUrl = ConfigHelper.getBACKEND_API_URL() + "auth/refresh-user?email=" + urlParamEmail;
         try {
             String response = httpClientHelper.sendPost(apiUrl, "", null);
             if (response != null) {
@@ -129,4 +145,7 @@ public class ConfigHelper {
         return file.delete();
     }
 
+    public static ConfigHelper getInstance() {
+        return new ConfigHelper();
+    }
 }

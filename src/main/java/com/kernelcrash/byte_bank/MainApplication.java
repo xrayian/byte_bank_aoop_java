@@ -8,17 +8,20 @@ import javafx.stage.Stage;
 import java.util.concurrent.ExecutionException;
 
 public class MainApplication extends Application {
-    public static SceneManager sceneManager;
     public static HttpClientHelper httpClientHelper;
     public static StateManager stateManager;
+    public static SceneManager sceneManager;
 
     @Override
     public void start(Stage stage) throws Exception {
+        ConfigHelper.init();
         httpClientHelper = new HttpClientHelper();
         stateManager = StateManager.getInstance();
+
         if(stateManager.isUserLoggedIn()) {
             loadMarketWS();
         }
+
         sceneManager = new SceneManager(stage);
         sceneManager.init();
     }

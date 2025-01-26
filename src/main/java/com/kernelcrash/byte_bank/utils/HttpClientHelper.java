@@ -23,7 +23,7 @@ public class HttpClientHelper {
 
     public boolean convertCurrency(Wallet fromWallet, Wallet toWallet, double fromAmount) {
         // Encode the wallet names
-        String apiUrl = ConfigHelper.BACKEND_API_URL + "transactions/convert-currency-between-wallets?uuid=" + StateManager.getInstance().getCurrentUser().getUserId() + "&amount=" + fromAmount + "&fromWalletId=" + fromWallet.getWalletId() + "&toWalletId=" + toWallet.getWalletId();
+        String apiUrl = ConfigHelper.getBACKEND_API_URL() + "transactions/convert-currency-between-wallets?uuid=" + StateManager.getInstance().getCurrentUser().getUserId() + "&amount=" + fromAmount + "&fromWalletId=" + fromWallet.getWalletId() + "&toWalletId=" + toWallet.getWalletId();
         String jsonBody = "";
         Map<String, String> headers = Map.of("Accept", "application/json");
         try {
@@ -44,7 +44,7 @@ public class HttpClientHelper {
     public boolean transferCurrency(Wallet fromWallet, String toUUID, double fromAmount) {
         // Encode the wallet names
         //http://localhost:8080/api/v1/transactions/send-currency-between-users?senderUUID=52386b6a-f49f-4e56-a889-b3a6f8f8236f&receiverUUID=676526bb-27ee-4618-a1f7-08f59b4a3358&amount=5&currency=USD&senderWalletAddress=1
-        String apiUrl = ConfigHelper.BACKEND_API_URL + "transactions/send-currency-between-users?senderUUID=" + MainApplication.stateManager.getCurrentUser().getUserId() + "&receiverUUID=" + toUUID + "&amount=" + fromAmount + "&currency=" + fromWallet.getCryptoType() + "&senderWalletAddress=" + fromWallet.getWalletId();
+        String apiUrl = ConfigHelper.getBACKEND_API_URL() + "transactions/send-currency-between-users?senderUUID=" + MainApplication.stateManager.getCurrentUser().getUserId() + "&receiverUUID=" + toUUID + "&amount=" + fromAmount + "&currency=" + fromWallet.getCryptoType() + "&senderWalletAddress=" + fromWallet.getWalletId();
         String jsonBody = "";
         Map<String, String> headers = Map.of("Accept", "application/json");
         try {
@@ -198,7 +198,7 @@ public class HttpClientHelper {
 
     public void createWallet(String walletName, String symbol) {
         walletName = URLEncoder.encode(walletName);
-        String apiUrl = ConfigHelper.BACKEND_API_URL + "transactions/open-wallet?uuid=" + StateManager.getInstance().getCurrentUser().getUserId() + "&walletName=" + walletName + "&symbol=" + symbol;
+        String apiUrl = ConfigHelper.getBACKEND_API_URL() + "transactions/open-wallet?uuid=" + StateManager.getInstance().getCurrentUser().getUserId() + "&walletName=" + walletName + "&symbol=" + symbol;
         String jsonBody = "";
         Map<String, String> headers = Map.of("Accept", "application/json");
         try {

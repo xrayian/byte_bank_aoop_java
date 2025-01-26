@@ -62,7 +62,7 @@ public class SignupController implements SceneController {
 
         //send http post request
         try {
-            MainApplication.httpClientHelper.sendPost(ConfigHelper.BACKEND_API_URL +"auth/register?username="+username+"&password="+password+"&email="+email, empty, Map.of("Content-Type", "application/json"));
+            MainApplication.httpClientHelper.sendPost(ConfigHelper.getBACKEND_API_URL() +"auth/register?username="+username+"&password="+password+"&email="+email, empty, Map.of("Content-Type", "application/json"));
         } catch (Exception e) {
             e.printStackTrace();
             error_msg.setText("An error occurred. Please try again later.");

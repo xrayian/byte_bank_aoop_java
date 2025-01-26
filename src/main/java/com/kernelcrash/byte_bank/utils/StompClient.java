@@ -35,7 +35,7 @@ public class StompClient {
     /// data can be found in `CurrencyDataStore` class
     public static void fetchCryptoDataFeed() throws ExecutionException, InterruptedException {
         stompClient.setMessageConverter(new StringMessageConverter());
-        String url = ConfigHelper.WS_CRYPTO_SOCKET_URL;
+        String url = ConfigHelper.getWS_CRYPTO_SOCKET_URL();
         StompSession session = stompClient.connectAsync(url, sessionHandler).get();
         session.subscribe("/topic/crypto-prices", sessionHandler);
     }
