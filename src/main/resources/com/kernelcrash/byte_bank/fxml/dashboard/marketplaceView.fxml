@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane prefHeight="748.0" prefWidth="1119.0" style="-fx-background-color: #f7faff;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardMarketplaceController">
    <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="4.800000190734863" prefHeight="799.0" prefWidth="1100.0" style="-fx-background-color: #f7faff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -24,15 +25,21 @@
                       <!-- Top Cards -->
                       <HBox fx:id="info_card_hbox" minHeight="185.0" prefHeight="185.0" prefWidth="1044.0" spacing="10.0" style="-fx-background-color: #f7faff;">
                           <!-- Balance Card -->
-                          <VBox maxHeight="180.0" minHeight="180.0" minWidth="410.0" prefHeight="180.0" prefWidth="411.0" spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;">
+                          <VBox maxHeight="180.0" minHeight="180.0" minWidth="410.0" prefHeight="180.0" prefWidth="411.0" spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="base-card">
                               <Label text="Estimated Balance (USD)" textFill="#aeaed0">
                               <font>
                                  <Font name="Poppins Regular" size="15.0" />
                               </font></Label>
-                              <Label fx:id="estBalVal" alignment="BOTTOM_RIGHT" prefHeight="79.0" prefWidth="381.0" text="\$123,987" textFill="#2b3674">
-                              <font>
-                                 <Font name="Agency FB Bold" size="50.0" />
-                              </font></Label>
+                           <HBox>
+                              <children>
+                                 <FontIcon iconColor="#155ab6" iconLiteral="fas-chart-pie" iconSize="48" />
+                                    <Label fx:id="estBalVal" alignment="BOTTOM_RIGHT" prefHeight="79.0" prefWidth="381.0" text="\$123,987" textFill="#2b3674">
+                                    <font>
+                                       <Font name="Agency FB Bold" size="50.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </HBox>
                            <Label fx:id="walletCnt" alignment="CENTER_RIGHT" layoutX="25.0" layoutY="25.0" prefHeight="23.0" prefWidth="390.0" text="3 Wallets" textFill="#2b3674">
                               <font>
                                  <Font name="Poppins Regular" size="15.0" />
@@ -53,8 +60,8 @@
                     <!-- Market Data -->
                     <HBox spacing="20">
                         <!-- Left Side: Chart -->
-                        <VBox fx:id="primary_chart" prefWidth="700" spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;">
-                            <LineChart fx:id="mainChart" alternativeRowFillVisible="false" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" style="-fx-min-height: 300px;" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                        <VBox fx:id="primary_chart" prefWidth="700" spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="base-card">
+                            <LineChart fx:id="mainChart" alternativeRowFillVisible="false" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendSide="RIGHT" legendVisible="false" style="-fx-min-height: 300px;" title="Last Year Data" titleSide="BOTTOM" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
                                 <xAxis>
                                     <CategoryAxis fx:id="mainChartXAxis" />
                                 </xAxis>
@@ -65,8 +72,11 @@
                         </VBox>
             
                         <!-- Right Side: Markets List -->
-                        <VBox minHeight="470.0" prefWidth="470.0" spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;">
-                            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Markets" />
+                        <VBox minHeight="470.0" prefWidth="470.0" spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="base-card">
+                            <Label style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Live Market Rates">
+                           <graphic>
+                              <FontIcon iconColor="#ff7373" iconLiteral="fas-dot-circle" />
+                           </graphic></Label>
                             <TableView fx:id="marketTable" style="-fx-border-radius: 10px; -fx-background-radius: 10px;">
                                 <columns>
                                     <TableColumn fx:id="symbolColumn" text="Symbol" />

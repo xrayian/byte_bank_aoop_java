@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,14 +11,14 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="569.0" prefWidth="814.0" style="-fx-background-color: #f4f7fe;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransferController">
+<AnchorPane prefHeight="669.0" prefWidth="980.0" style="-fx-background-color: #f4f7fe;" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernelcrash.byte_bank.controllers.dashboard.DashboardTransferController">
     <children>
         <VBox prefHeight="570.0" prefWidth="814.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <padding>
                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
             </padding>
             <children>
-                <HBox fillHeight="false" prefHeight="0.0" prefWidth="798.0" spacing="8.0" VBox.vgrow="NEVER">
+                <HBox prefHeight="0.0" prefWidth="798.0" spacing="8.0" VBox.vgrow="NEVER">
                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="163.0" prefWidth="396.0" spacing="10.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 10; -fx-background-color: linear-gradient(to left, #ffffff, #e9f2fa);" styleClass="card-selected" HBox.hgrow="ALWAYS">
                             <children>
@@ -65,16 +64,11 @@
                         </HBox>
                     </children>
                 </HBox>
-                <VBox alignment="CENTER" style="-fx-background-color: #ffffff; -fx-background-radius: 12px; -fx-alignment: center; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 2, 2);" VBox.vgrow="ALWAYS">
-               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                  <children>
-                     <Separator layoutX="709.0" layoutY="176.0" prefWidth="150.0" visible="false" HBox.hgrow="ALWAYS" />
-                          <fx:include source="../cards/transfer-asset-convert-card.fxml" />
-                     <Separator prefWidth="150.0" visible="false" HBox.hgrow="ALWAYS" />
-                  </children>
-               </HBox>
-
-                </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                       <fx:include source="../cards/transfer-asset-convert-card.fxml" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
             </children>
         </VBox>
     </children>

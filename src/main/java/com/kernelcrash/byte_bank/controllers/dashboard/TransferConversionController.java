@@ -110,6 +110,22 @@ public class TransferConversionController {
         trxWalletSelBox.getSelectionModel().selectFirst();
 
         convertBtn.setOnAction(event -> {
+            if (payWalletSelBox.getValue() == null || receiveWalletSelBox.getValue() == null || payAmountField.getText().isEmpty()) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Please fill all fields");
+                errorAlert.showAndWait();
+                return;
+            }
+
+            if (payWalletSelBox.getValue().getCryptoType().equals(receiveWalletSelBox.getValue().getCryptoType())) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Cannot convert between same wallets");
+                errorAlert.showAndWait();
+                return;
+            }
+
             //confirmation dialog
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Convert");
@@ -150,6 +166,13 @@ public class TransferConversionController {
         });
 
         transferBtn.setOnAction(event -> {
+            if (trxWalletSelBox.getValue() == null || trxAmountField.getText().isEmpty() || accountNameField.getText().isEmpty()) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Please fill all fields");
+                errorAlert.showAndWait();
+                return;
+            }
             //confirmation dialog
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Transfer");

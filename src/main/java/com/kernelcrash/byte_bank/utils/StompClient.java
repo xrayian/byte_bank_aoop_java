@@ -18,6 +18,7 @@ public class StompClient {
         @Override
         public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
             System.out.println("WebSocket session established...");
+
         }
 
         @Override
@@ -27,6 +28,7 @@ public class StompClient {
 
         @Override
         public void handleFrame(StompHeaders headers, Object payload) {
+            System.out.println("Received data from WebSocket endpoint...");
             CurrencyDataStore.parseCoinbaseJSONData((String) payload);
         }
     };

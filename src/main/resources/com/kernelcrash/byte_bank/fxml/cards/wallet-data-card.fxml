@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="183.0" minHeight="180.0" minWidth="457.0" prefHeight="180.0" prefWidth="457.0" style="-fx-background-color: white; -fx-padding: 10px; -fx-border-radius: 10px; -fx-background-radius: 10px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="183.0" minHeight="180.0" minWidth="457.0" prefHeight="180.0" prefWidth="457.0" style="-fx-background-color: white; -fx-padding: 10px; -fx-border-radius: 10px; -fx-background-radius: 10px;" styleClass="base-card" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
         <HBox layoutX="21.6" layoutY="20.8" prefHeight="180.0" prefWidth="436.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>

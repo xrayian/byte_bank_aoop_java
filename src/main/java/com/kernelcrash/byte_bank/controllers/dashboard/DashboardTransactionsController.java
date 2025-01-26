@@ -3,6 +3,7 @@ package com.kernelcrash.byte_bank.controllers.dashboard;
 import com.kernelcrash.byte_bank.utils.StateManager;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
+import javafx.scene.paint.Paint;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -102,9 +103,7 @@ public class DashboardTransactionsController {
                     if (wallet.getTransactions() != null)
                         wallet.getTransactions().forEach(
                                 transaction -> {
-                                    String iconLiteral = transaction.getType().equals("deposit") ? "fas-arrow-down" : "fas-arrow-up";
                                     transactions.add(new TransactionItem(
-                                            iconLiteral,
                                             wallet.getWalletName(),
                                             transaction.getType(),
                                             wallet.getCryptoType(),
@@ -143,7 +142,7 @@ public class DashboardTransactionsController {
         @FXML
         private final String dateTime;
 
-        public TransactionItem(String iconLiteral, String accountName, String type, String currency, String amount, Date dateTime) {
+        public TransactionItem(String accountName, String type, String currency, String amount, Date dateTime) {
 
             String pattern = "E, dd MMM yyyy hh:mm a";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -153,8 +152,35 @@ public class DashboardTransactionsController {
             this.type = type;
             this.amount = amount;
             this.dateTime = date;
-            this.icon = new FontIcon(iconLiteral);
+            this.icon = new FontIcon();
             this.currency = currency;
+            setIcon();
+        }
+
+        private void setIcon() {
+            icon.setIconSize(8);
+            icon.setIconColor(Paint.valueOf("#000000"));
+            switch (type) {
+                case "Conversion":
+                    icon.setIconLiteral("fas-sync-alt");
+                    break;
+                case "Deposit":
+                    icon.setIconLiteral("fas-arrow-down");
+                    break;
+                case "Withdrawal":
+                    icon.setIconLiteral("fas-arrow-up");
+                    break;
+                case "Transfer":
+                    icon.setIconLiteral("fas-exchange-alt");
+                    break;
+                default:
+                    if (amount.contains("-")) {
+                        icon.setIconLiteral("fas-minus");
+                    } else {
+                        icon.setIconLiteral("fas-plus");
+                    }
+                    break;
+            }
         }
 
         public FontIcon getIcon() {

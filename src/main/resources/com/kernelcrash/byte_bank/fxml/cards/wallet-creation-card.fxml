@@ -1,45 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="223.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox alignment="CENTER_LEFT" prefHeight="223.0" prefWidth="400.0" style="-fx-padding: 20px; -fx-spacing: 20px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="CENTER_LEFT" prefHeight="223.0" prefWidth="400.0" style="-fx-padding: 20px; -fx-spacing: 20px;" styleClass="base-card" stylesheets="@../../css/styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Separator layoutX="30.0" layoutY="131.0" orientation="VERTICAL" prefHeight="200.0" visible="false" />
-                <HBox alignment="CENTER" prefWidth="445.0">
-                    <children>
-                        <Label text="Wallet Name" />
-                        <TextField id="walletNameField" prefWidth="145.0" HBox.hgrow="ALWAYS">
-                            <HBox.margin>
-                                <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
-                            </HBox.margin>
-                        </TextField>
-                    </children>
-                </HBox>
-                <HBox alignment="CENTER" layoutX="30.0" layoutY="295.0" prefWidth="445.0">
-                    <children>
-                        <Label prefHeight="18.0" prefWidth="85.0" text="Currency" HBox.hgrow="ALWAYS" />
-                        <ComboBox id="cryptoType" prefHeight="26.0" prefWidth="296.0" HBox.hgrow="ALWAYS">
-                            <HBox.margin>
-                                <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
-                            </HBox.margin>
-                        </ComboBox>
-                    </children>
-                </HBox>
-                <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-            <HBox alignment="CENTER_RIGHT" spacing="5.0">
+            <VBox spacing="5.0">
                <children>
-                        <Button id="cancelBtn" mnemonicParsing="false" text="Cancel" />
-                        <Button id="createWalletBtn" mnemonicParsing="false" text="Save" />
+                        <Label text="Wallet Name">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                        <TextField id="walletNameField" prefHeight="36.0" prefWidth="360.0" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Currency">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                        <ComboBox id="cryptoType" prefHeight="26.0" prefWidth="271.0" styleClass="ddButton-slim" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                        <Button id="cancelBtn" mnemonicParsing="false" styleClass="icon-btn" text="Cancel" />
+                        <Button id="createWalletBtn" mnemonicParsing="false" styleClass="primary-icon-btn" text="Save" />
                </children>
             </HBox>
             </children>

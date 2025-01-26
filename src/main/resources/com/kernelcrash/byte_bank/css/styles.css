@@ -45,6 +45,59 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle drop shadow for active button */
 }
 
+.ddButton {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-padding: 10 20;
+    -fx-alignment: center-left;
+}
+
+.ddButton-slim {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-padding: 2.5 5;
+    -fx-alignment: center-left;
+}
+
+
+
+.ddButton:disabled {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #b0b0b0;
+}
+
+.ddButton-slim:disabled {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #b0b0b0;
+}
+
+.ddButton:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.ddButton-slim:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.ddButton:pressed {
+    -fx-background-color: #e0e0e0;
+}
+
+.ddButton-slim:pressed {
+    -fx-background-color: #e0e0e0;
+}
+
+
 .primary-icon-btn:hover {
     -fx-background-color: #d9ecff; /* Darker blue on hover */
     -fx-border-color: transparent;
@@ -86,6 +139,33 @@
 .icon-btn:pressed .ikonli-font-icon {
     -fx-icon-color: #0056a4; /* Vibrant blue for pressed icons */
 }
+
+.text-field, .password-field {
+    -fx-background-color: white;        /* Background color for the input box */
+    -fx-border-color: lightgray;       /* Border color for the input box */
+    -fx-border-radius: 10;            /* Rounded corners */
+    -fx-background-radius: 10;        /* Rounded corners for the background */
+    -fx-padding: 2.5 5;               /* Inner padding for text */
+    -fx-font-size: 14px;              /* Font size for text */
+    -fx-font-weight: bold;            /* Bold text */
+    -fx-text-fill: black;             /* Text color */
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #6ca6f1;        /* Border color when focused */
+    -fx-background-color: #f9f9f9;    /* Slightly different background color */
+}
+
+.text-field:hover, .password-field:hover {
+    -fx-border-color: gray;           /* Border color on hover */
+}
+
+.text-field:disabled, .password-field:disabled {
+    -fx-background-color: #f5f5f5;    /* Disabled state background */
+    -fx-border-color: #d3d3d3;        /* Disabled state border */
+    -fx-text-fill: #a9a9a9;           /* Disabled text color */
+}
+
 
 
 
@@ -153,18 +233,6 @@ button:hover {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 2, 2);
 }
 
-/* Card Titles */
-.crypto-name, .portfolio-title {
-    /*-fx-font-size: 16px;*/
-    /*-fx-font-weight: bold;*/
-    /*-fx-text-fill: #0056a4; !* Vibrant blue *!*/
-}
-
-.crypto-value, .portfolio-value {
-    /*-fx-font-size: 14px;*/
-    /*-fx-text-fill: #616161; !* Neutral gray *!*/
-}
-
 /* Header */
 .dashboard-header {
     -fx-background-color: linear-gradient(to right, #e9f5ff, #ffffff);
@@ -189,105 +257,41 @@ button:hover {
     -fx-text-fill: #0056a4; /* Vibrant blue */
 }
 
-/* Table Styling */
+
+
+/**/
+
 .table-view {
-    -fx-background-color: transparent;
-    /*-fx-border-color: #dce1e8;*/
+    -fx-border-color: lightgray;      /* Table border */
+    -fx-border-radius: 10;           /* Rounded corners for the table */
+    -fx-background-radius: 10;
+    -fx-padding: 10;
 }
 
 .table-view .column-header {
-    /*-fx-background-color: #e9f5ff;*/
-    /*-fx-text-fill: #0056a4; !* Dark blue *!*/
-    -fx-padding: 10px;
+    -fx-background-color: white;     /* Background color for the header */
+    -fx-border-color: lightgray;     /* Border color for header cells */
+    -fx-border-width: 0 0 1 0;       /* Bottom border only */
+    -fx-font-size: 14px;             /* Font size */
+    -fx-text-fill: black;            /* Text color for header */
+    -fx-alignment: START;           /* Center-align text */
+    -fx-padding: 10;                 /* Padding inside header cells */
 }
 
-.table-cell {
-    -fx-background-color: #ffffff;
-    -fx-text-fill: #2c3e50; /* Neutral gray */
+.table-view .column-header:hover {
+    -fx-background-color: #f9f9f9;   /* Slight hover effect for header */
 }
 
-.table-row-cell:odd .table-cell {
-    -fx-background-color: #f9fbff; /* Subtle row striping */
+.table-view .cell {
+    -fx-background-color: white;     /* Background color for table cells */
+    -fx-border-color: lightgray;     /* Cell border */
+    -fx-border-width: 0 0 1 0;       /* Bottom border for rows */
+    -fx-font-size: 16px;             /* Font size */
+    -fx-text-fill: black;            /* Text color */
+    -fx-padding: 0;                  /* Padding inside data cells */
 }
 
-
-/*
-style corrections... should cascade
-*/
-
-/*!* Root Container *!*/
-/*.root {*/
-/*    -fx-background-color: #f5f7fa; !* Light neutral gray *!*/
-/*    -fx-font-family: "Inter", sans-serif;*/
-/*}*/
-
-/*!* Sidebar *!*/
-/*.dashboard-sidebar {*/
-/*    -fx-background-color: #ffffff; !* Pure white for sidebar *!*/
-/*    -fx-border-color: #dce1e8;*/
-/*    -fx-padding: 16px;*/
-/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 2, 2);*/
-/*}*/
-
-/*!* Cards *!*/
-/*.crypto-card, .portfolio-card, .base-card {*/
-/*    -fx-background-color: #ffffff; !* Pure white *!*/
-/*    -fx-border-radius: 8px;*/
-/*    -fx-padding: 16px;*/
-/*    -fx-margin: 8px; !* Add space between cards *!*/
-/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 2, 2);*/
-/*}*/
-
-/*!* Card Titles *!*/
-/*.crypto-name, .portfolio-title {*/
-/*    -fx-font-size: 16px;*/
-/*    -fx-font-weight: bold;*/
-/*    -fx-text-fill: #2c3e50; !* Modern dark gray *!*/
-/*}*/
-
-/*!* Chart Area *!*/
-/*.chart {*/
-/*    -fx-background-color: #ffffff; !* White background for consistency *!*/
-/*    -fx-border-color: #dce1e8;*/
-/*    -fx-padding: 8px;*/
-/*}*/
-
-/*!* Table *!*/
-/*.table-view {*/
-/*    -fx-background-color: #ffffff; !* White for table background *!*/
-/*    -fx-border-color: #dce1e8;*/
-/*}*/
-
-/*.table-view .column-header {*/
-/*    -fx-background-color: #e9f5ff; !* Soft blue header *!*/
-/*    -fx-text-fill: #0056a4;*/
-/*    -fx-border-color: transparent; !* Remove any unintended border gaps *!*/
-/*}*/
-
-/*.table-view .column-header .label {*/
-/*    -fx-alignment: center-left; !* Align header text to the left *!*/
-/*}*/
-
-/*.table-cell {*/
-/*    -fx-background-color: #ffffff;*/
-/*    -fx-text-fill: #2c3e50; !* Dark gray text *!*/
-/*}*/
-
-/*.table-row-cell:odd .table-cell {*/
-/*    -fx-background-color: #f9fbff; !* Subtle row striping *!*/
-/*}*/
-
-/*!* Header *!*/
-/*.dashboard-header {*/
-/*    -fx-background-color: #ffffff; !* White for consistency *!*/
-/*    -fx-padding: 15px 20px;*/
-/*    -fx-border-color: #d1dbe8;*/
-/*    -fx-border-radius: 8px;*/
-/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 5, 0, 0, 3);*/
-/*}*/
-
-/*.label.header-title {*/
-/*    -fx-font-size: 24px;*/
-/*    -fx-font-weight: bold;*/
-/*    -fx-text-fill: #0056a4; !* Vibrant blue *!*/
-/*}*/
+.table-view .cell:selected {
+    -fx-background-color: #d6ebff;   /* Highlight selected cell */
+    -fx-text-fill: black;            /* Text color for selected cell */
+}

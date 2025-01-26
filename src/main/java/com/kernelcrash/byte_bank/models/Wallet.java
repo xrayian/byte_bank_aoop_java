@@ -83,6 +83,8 @@ public class Wallet implements Serializable {
         return primary;
     }
 
+
+
     public double getConversionRate(Wallet receiveWallet) {
         HashMap<String, CurrencyUSDValue> latestPrices = CurrencyDataStore.getLatestCurrencyPriceList();
 

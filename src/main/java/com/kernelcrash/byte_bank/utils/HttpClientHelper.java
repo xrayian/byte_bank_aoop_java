@@ -21,6 +21,44 @@ public class HttpClientHelper {
         this.httpClient = HttpClient.newHttpClient();
     }
 
+    public static boolean updatePrimaryWallet(Wallet selectedWallet, Wallet oldPrimaryWallet) {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>Updating primary wallet");
+        // Encode the wallet names
+        String apiUrl = ConfigHelper.getBACKEND_API_URL() + "transactions/change-primary-wallet?uuid=" + MainApplication.stateManager.getCurrentUser().getUserId() + "&newWalletId=" + selectedWallet.getWalletId() + "&oldWalletId=" + oldPrimaryWallet.getWalletId();
+        String jsonBody = "";
+        Map<String, String> headers = Map.of("Accept", "application/json");
+        try {
+            String res = new HttpClientHelper().sendPost(apiUrl, jsonBody, headers);
+            System.out.println("Primary wallet update response: " + res);
+            if (res != null && res.equals("true")) {
+                System.out.println("Primary wallet updated successfully");
+                return true;
+            }
+            return false;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean updatePassword(String oldPassword, String newPassword1) {
+        // Encode the wallet names
+        String apiUrl = ConfigHelper.getBACKEND_API_URL() + "auth/change-password?uuid=" + MainApplication.stateManager.getCurrentUser().getUserId() + "&oldPassword=" + oldPassword + "&newPassword=" + newPassword1;
+        String jsonBody = "";
+        Map<String, String> headers = Map.of("Accept", "application/json");
+        try {
+            String res = new HttpClientHelper().sendPost(apiUrl, jsonBody, headers);
+            if (res != null && res.equals("true")) {
+                System.out.println("Password updated successfully");
+                return true;
+            }
+            return false;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean convertCurrency(Wallet fromWallet, Wallet toWallet, double fromAmount) {
         // Encode the wallet names
         String apiUrl = ConfigHelper.getBACKEND_API_URL() + "transactions/convert-currency-between-wallets?uuid=" + StateManager.getInstance().getCurrentUser().getUserId() + "&amount=" + fromAmount + "&fromWalletId=" + fromWallet.getWalletId() + "&toWalletId=" + toWallet.getWalletId();

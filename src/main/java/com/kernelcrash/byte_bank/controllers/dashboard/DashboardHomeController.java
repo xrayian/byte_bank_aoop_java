@@ -13,10 +13,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
@@ -186,10 +183,6 @@ public class DashboardHomeController {
                 icon.setIconLiteral("fas-wallet");
                 if (wallet.getCryptoType().equals("BTC")) icon.setIconLiteral("fab-bitcoin");
                 else if (wallet.getCryptoType().equals("ETH")) icon.setIconLiteral("fab-ethereum");
-                else if (wallet.getCryptoType().equals("LTC")) icon.setIconLiteral("fab-litecoin");
-                else if (wallet.getCryptoType().equals("XRP")) icon.setIconLiteral("fab-xrp");
-                else if (wallet.getCryptoType().equals("BCH")) icon.setIconLiteral("fab-bitcoin-cash");
-                else if (wallet.getCryptoType().equals("DOGE")) icon.setIconLiteral("fab-dogecoin");
                 else if (wallet.getCryptoType().equals("USD")) icon.setIconLiteral("fas-dollar-sign");
             }
             icon.setIconSize(30);
@@ -253,14 +246,18 @@ public class DashboardHomeController {
 
     private void loadUserWallets(boolean hardRefresh) {
 
-
         if (hardRefresh)
             stateManager.refreshUser();
 
         walletContainerVBOX.getChildren().clear();
-        stateManager.getCurrentUser().getWallets().forEach(wallet -> {
-            addWalletCards(walletContainerVBOX, wallet);
-        });
+        try {
+            stateManager.getCurrentUser().getWallets().forEach(wallet -> {
+                addWalletCards(walletContainerVBOX, wallet);
+            });
+
+        } catch (Exception e) {
+            System.err.println("Failed to load wallets");
+        }
 
     }
 

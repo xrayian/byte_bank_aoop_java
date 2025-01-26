@@ -105,6 +105,7 @@ public class DashboardMarketplaceController {
         currencyDropdown.getItems().addAll(CurrencyDataStore.getLatestCurrencyPriceList().keySet());
         currencyDropdown.getItems().sort(Comparator.naturalOrder());
         currencyDropdown.getSelectionModel().select("BTC");
+        currencyDropdown.getStyleClass().add("ddButton");
 
         currencyDropdown.setOnAction(event -> {
             if (!mainChart.getData().isEmpty()) {
