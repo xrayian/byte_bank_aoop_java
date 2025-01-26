@@ -10,10 +10,20 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 public class ConfigHelper {
-    public static final String BACKEND_API_URL = "http://localhost:8080/api/v1/";
-    public static final String BACKEND_WS_URL = "ws://localhost:8080/";
-    public static final String WS_CRYPTO_SOCKET_URL = "ws://localhost:8080/crypto-socket";
+
+    //read the server IP and port from a file
+
+    private static String ServerIP = "localhost";
+    private static String ServerPort = "8080";
+
+    public static final String BACKEND_API_URL = "http://" + ServerIP + ":" + ServerPort + "/api/v1/";
+    public static final String BACKEND_WS_URL = "ws://" + ServerIP + ":" + ServerPort + "/ws";
+    public static final String WS_CRYPTO_SOCKET_URL = "ws://" + ServerIP + ":" + ServerPort + "/crypto-socket";
     public boolean debugNetwork = true;
+
+    public ConfigHelper() {
+        init();
+    }
 
     public static User loadLoggedInUserObject() {
         User user = null;
@@ -43,6 +53,18 @@ public class ConfigHelper {
         }
 
         return user;
+    }
+
+    private static void init() {
+        //read the server IP and port from a file
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("server.config"));
+            ServerIP = reader.readLine();
+            ServerPort = reader.readLine();
+            reader.close();
+        } catch (IOException e) {
+            System.err.println("Failed to read server config file");
+        }
     }
 
     public static User refreshUserObjectOnline(String email) {
