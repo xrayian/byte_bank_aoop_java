@@ -71,7 +71,7 @@ public class DashboardLayoutController implements SceneController {
         stage.setTitle("Settings | Byte Bank");
         clearActiveButtonStyles();
         settingsBtn.getStyleClass().add("active-sidebar-button");
-        loadView("fxml/dashboard/SettingsView.fxml");
+        loadView("fxml/dashboard/settingsView.fxml");
     }
 
     private void clearActiveButtonStyles() {
